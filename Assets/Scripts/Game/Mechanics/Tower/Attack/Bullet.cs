@@ -1,16 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
-namespace Game.Mechanics
+namespace Game.Mechanics.Tower.Attack
 {
     public class Bullet : MonoBehaviour
     {
         [SerializeField] private float _speed;
 
         private int _damage;
-        private GameObject _target;
+        [SerializeField] private GameObject _target;
 
         public int Damage
         {
@@ -34,7 +31,6 @@ namespace Game.Mechanics
             {
                 Vector3 direction = _target.transform.position - transform.position;
                 direction = direction.normalized * _speed;
-                
                 transform.Translate(direction * Time.deltaTime);
             }
             else
@@ -42,5 +38,7 @@ namespace Game.Mechanics
                 Destroy(gameObject);
             }
         }
+
+        public virtual void OnExplosion() {}
     }
 }

@@ -1032,7 +1032,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameField: {fileID: 1527003058}
-  _startTowerPrice: 50
+  _startTowerPrice: 10
   _priceIncrease: 10
   _currentTowerPrice: 0
 --- !u!114 &475757883
@@ -1061,7 +1061,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6b296b2e094ed47a5be55f70ac764d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startMana: 500
+  _startMana: 100
   _currentMana: 0
 --- !u!114 &475757885
 MonoBehaviour:
@@ -1078,10 +1078,10 @@ MonoBehaviour:
   _mobSpawnMechanics: {fileID: 1812183910}
   _towerPrefabs:
   - {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
+  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
+  - {fileID: 4873360445610627585, guid: afdfa197e0c7f1a43bf8f5f35572144e, type: 3}
+  - {fileID: 1073075685103986369, guid: 4ddf63af580d08042abf009971f9563e, type: 3}
   - {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
-  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
-  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
-  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
 --- !u!1 &491566385
 GameObject:
   m_ObjectHideFlags: 0
@@ -10687,7 +10687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb6b296b2e094ed47a5be55f70ac764d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startMana: 500
+  _startMana: 100
   _currentMana: 0
 --- !u!114 &1752026008
 MonoBehaviour:
@@ -10714,7 +10714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameField: {fileID: 1232050507}
-  _startTowerPrice: 50
+  _startTowerPrice: 10
   _priceIncrease: 10
   _currentTowerPrice: 0
 --- !u!114 &1752026010
@@ -10732,10 +10732,10 @@ MonoBehaviour:
   _mobSpawnMechanics: {fileID: 1931016222}
   _towerPrefabs:
   - {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
+  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
+  - {fileID: 4873360445610627585, guid: afdfa197e0c7f1a43bf8f5f35572144e, type: 3}
+  - {fileID: 1073075685103986369, guid: 4ddf63af580d08042abf009971f9563e, type: 3}
   - {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
-  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
-  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
-  - {fileID: 4183895886128968225, guid: 9e2944adf02c1f24a8fccb40c8d51738, type: 3}
 --- !u!1 &1752508623
 GameObject:
   m_ObjectHideFlags: 0
@@ -10938,7 +10938,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01a4c1f2e1677944a38696e71d9a7c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnInterval: 1
+  _spawnInterval: 0.5
   _mobPrefab: {fileID: 7684860529439253640, guid: 1d5e6ca9de5894744a32847ba70d7e11, type: 3}
   _pointParent: {fileID: 528745448}
   _manaMechanics: {fileID: 475757884}
@@ -10955,7 +10955,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3338f94f2e9f9044b6d27ef0e6f6642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startMobHp: 300
+  _startMobHp: 225
 --- !u!1 &1868949798
 GameObject:
   m_ObjectHideFlags: 0
@@ -11080,7 +11080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b01a4c1f2e1677944a38696e71d9a7c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnInterval: 1
+  _spawnInterval: 0.5
   _mobPrefab: {fileID: 7684860529439253640, guid: 1d5e6ca9de5894744a32847ba70d7e11, type: 3}
   _pointParent: {fileID: 1977368681}
   _manaMechanics: {fileID: 1752026007}
@@ -11097,7 +11097,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3338f94f2e9f9044b6d27ef0e6f6642, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _startMobHp: 300
+  _startMobHp: 225
 --- !u!1 &1931983194
 GameObject:
   m_ObjectHideFlags: 0

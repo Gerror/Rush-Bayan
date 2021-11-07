@@ -6,7 +6,7 @@ namespace Game.Mechanics.Mob
 {
     public class MobsHpUpdater : MonoBehaviour
     {
-        [Min(300)] [SerializeField] private int _startMobHp;
+        [Min(225)] [SerializeField] private int _startMobHp;
         private MobSpawnMechanics _mobSpawnMechanics;
 
         public int StartMobHp
@@ -25,7 +25,7 @@ namespace Game.Mechanics.Mob
             while (true)
             {
                 yield return new WaitForSeconds(GameSettings.MobUpdateInterval);
-                _startMobHp += 100;
+                _startMobHp += 115;
             }
         }
     }

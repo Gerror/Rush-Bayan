@@ -14,7 +14,7 @@ namespace Game.Mechanics.Tower
     {
         [SerializeField] private GameObject _gameField;
            
-        [Min(50)] [SerializeField] private int _startTowerPrice;
+        [Min(10)] [SerializeField] private int _startTowerPrice;
         [Min(10)] [SerializeField] private int _priceIncrease;
 
         private ManaMechanics _manaMechanics;
@@ -65,8 +65,10 @@ namespace Game.Mechanics.Tower
                 GameObject tower = Object.Instantiate(
                     _towerOwnerMechanics.TowerPrefab[Random.Range(0, _towerOwnerMechanics.TowerPrefab.Length - 1)],
                     _gameField.transform.GetChild(fieldIndex));
-                
-                tower.GetComponent<TowerAttackMechanics>().MobSpawnMechanics = _mobSpawnMechanics;
+
+                TowerAttackMechanics towerAttackMechanics = tower.GetComponent<TowerAttackMechanics>();
+                if (towerAttackMechanics)
+                    towerAttackMechanics.MobSpawnMechanics = _mobSpawnMechanics;
                 
                 _freeFieldMap.Remove(fieldIndex);
             }

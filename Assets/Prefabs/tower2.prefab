@@ -109,9 +109,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa440044a09a8c44b7a9eccbf5a35fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 200
+  _damage: 123
   _bulletPrefab: {fileID: 8869960363283956353, guid: 2956c3a936f47aa45876b29dab8e44a3, type: 3}
-  _attackInterval: 2
+  _attackInterval: 0.8
   MobSpawnMechanics: {fileID: 0}
 --- !u!111 &8973490798965314279
 Animation:

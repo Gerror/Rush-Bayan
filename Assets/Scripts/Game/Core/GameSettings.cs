@@ -7,6 +7,6 @@ namespace Game.Core
     public static class GameSettings
     {
         public readonly static int NumberOfTypeOfTower = 5;
-        public readonly static float MobUpdateInterval = 5f;
+        public readonly static float MobUpdateInterval = 10f;
     }
 }

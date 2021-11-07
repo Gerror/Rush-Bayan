@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 100
   _bulletPrefab: {fileID: 8869960363283956353, guid: 2956c3a936f47aa45876b29dab8e44a3, type: 3}
-  _attackInterval: 1
+  _attackInterval: 0.45
   MobSpawnMechanics: {fileID: 0}
 --- !u!111 &-4817723566605329323
 Animation:

@@ -8,7 +8,7 @@ namespace Game.Mechanics.Mob
 {
     public class MobSpawnMechanics : MonoBehaviour
     {
-        [Min(1f)] [SerializeField] private float _spawnInterval;
+        [Min(0.1f)] [SerializeField] private float _spawnInterval;
         [SerializeField] private GameObject _mobPrefab;
         [SerializeField] private GameObject _pointParent;
         [SerializeField] private ManaMechanics _manaMechanics;

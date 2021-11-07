@@ -1,5 +1,6 @@
 using System;
 using Game.UI;
+using Game.Mechanics.Tower.Attack;
 using UnityEngine;
 
 namespace Game.Mechanics.Mob
@@ -42,6 +43,7 @@ namespace Game.Mechanics.Mob
                 if (bullet.Target == gameObject)
                 {
                     ChangeHp(-1 * bullet.Damage);
+                    bullet.OnExplosion();
                     Destroy(other.gameObject);
                 }
             }
