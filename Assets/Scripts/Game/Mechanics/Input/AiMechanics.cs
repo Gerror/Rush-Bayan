@@ -1,24 +1,12 @@
-using System;
 using System.Collections;
 using UnityEngine;
 using Game.Mechanics.Tower;
 
-namespace Game.Mechanics
+namespace Game.Mechanics.Input
 {
-    public class AiMechanics : MonoBehaviour
+    public class AiMechanics : InputMechanics
     {
-        private TowerSpawnMechanics _towerSpawnMechanics;
-        private ManaMechanics _manaMechanics;
-        
-        private void OnValidate()
-        {
-            if (!_towerSpawnMechanics)
-                _towerSpawnMechanics = GetComponent<TowerSpawnMechanics>();
-            if (!_manaMechanics)
-                _manaMechanics = GetComponent<ManaMechanics>();
-        }
-
-        private void Start()
+        public override void StartInputMechanics()
         {
             _manaMechanics.changeManaToEvent += ManaMenegment;
             

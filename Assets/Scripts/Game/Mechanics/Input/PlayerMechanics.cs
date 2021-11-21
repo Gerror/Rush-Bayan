@@ -2,27 +2,14 @@ using UnityEngine;
 using Game.UI;
 using Game.Mechanics.Tower;
 
-namespace Game.Mechanics
+namespace Game.Mechanics.Input
 {
-    [RequireComponent(typeof(TowerSpawnMechanics))]
-    [RequireComponent(typeof(ManaMechanics))]
-    public class PlayerMechanics : MonoBehaviour
+    public class PlayerMechanics : InputMechanics
     {
         [SerializeField] private SpawnTowerUI _spawnTowerUi;
         [SerializeField] private ManaScreen _manaScreen;
-        
-        private TowerSpawnMechanics _towerSpawnMechanics;
-        private ManaMechanics _manaMechanics;
-        
-        private void OnValidate()
-        {
-            if (!_towerSpawnMechanics)
-                _towerSpawnMechanics = GetComponent<TowerSpawnMechanics>();
-            if (!_manaMechanics)
-                _manaMechanics = GetComponent<ManaMechanics>();
-        }
 
-        void Start()
+        public override void StartInputMechanics()
         {
             _spawnTowerUi.spawnTowerEvent += SpawnTower;
 

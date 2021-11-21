@@ -992,10 +992,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 475757881}
-  - component: {fileID: 475757882}
-  - component: {fileID: 475757883}
-  - component: {fileID: 475757884}
   - component: {fileID: 475757885}
+  - component: {fileID: 475757882}
+  - component: {fileID: 475757884}
+  - component: {fileID: 475757883}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1047,6 +1047,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055865a243a6d5c4f9075603286cb40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerSpawnMechanics: {fileID: 475757882}
+  _manaMechanics: {fileID: 475757884}
   _spawnTowerUi: {fileID: 1233580595}
   _manaScreen: {fileID: 1072635232}
 --- !u!114 &475757884
@@ -1082,6 +1084,7 @@ MonoBehaviour:
   - {fileID: 4873360445610627585, guid: afdfa197e0c7f1a43bf8f5f35572144e, type: 3}
   - {fileID: 1073075685103986369, guid: 4ddf63af580d08042abf009971f9563e, type: 3}
   - {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
+  _inputMechanics: {fileID: 475757883}
 --- !u!1 &491566385
 GameObject:
   m_ObjectHideFlags: 0
@@ -10648,10 +10651,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1752026006}
-  - component: {fileID: 1752026007}
-  - component: {fileID: 1752026008}
   - component: {fileID: 1752026010}
   - component: {fileID: 1752026009}
+  - component: {fileID: 1752026007}
+  - component: {fileID: 1752026008}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -10701,6 +10704,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb39c5b6a86e7c446a2c1eb656f400ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerSpawnMechanics: {fileID: 1752026009}
+  _manaMechanics: {fileID: 1752026007}
 --- !u!114 &1752026009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10736,6 +10741,7 @@ MonoBehaviour:
   - {fileID: 4873360445610627585, guid: afdfa197e0c7f1a43bf8f5f35572144e, type: 3}
   - {fileID: 1073075685103986369, guid: 4ddf63af580d08042abf009971f9563e, type: 3}
   - {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
+  _inputMechanics: {fileID: 1752026008}
 --- !u!1 &1752508623
 GameObject:
   m_ObjectHideFlags: 0

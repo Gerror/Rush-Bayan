@@ -1,6 +1,8 @@
+using System;
 using UnityEngine;
 using Game.Mechanics.Mob;
 using Game.Core;
+using Game.Mechanics.Input;
 
 namespace Game.Mechanics
 {
@@ -8,7 +10,8 @@ namespace Game.Mechanics
     {
         [SerializeField] private MobSpawnMechanics _mobSpawnMechanics;
         [SerializeField] private GameObject[] _towerPrefabs = new GameObject[GameSettings.NumberOfTypeOfTower];
-
+        [SerializeField] private InputMechanics _inputMechanics;
+        
         public MobSpawnMechanics MobSpawnMechanics
         {
             get => _mobSpawnMechanics;
@@ -17,6 +20,11 @@ namespace Game.Mechanics
         public GameObject[] TowerPrefab
         {
             get => _towerPrefabs;
+        }
+
+        private void Start()
+        {
+            _inputMechanics.StartInputMechanics();
         }
     }
 }
