@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 namespace Game.Mechanics.Tower
 {
     [RequireComponent(typeof(ManaMechanics))]
-    [RequireComponent(typeof(TowerOwnerMechanics))]
+    [RequireComponent(typeof(TowerOwner))]
     public class TowerSpawnMechanics : MonoBehaviour
     {
         [SerializeField] private GameObject _gameField;
@@ -19,7 +19,7 @@ namespace Game.Mechanics.Tower
 
         private ManaMechanics _manaMechanics;
         private MobSpawnMechanics _mobSpawnMechanics;
-        private TowerOwnerMechanics _towerOwnerMechanics;
+        private TowerOwner _towerOwner;
         
         [SerializeField] private int _currentTowerPrice = 0;
         private Dictionary<int, bool> _freeFieldMap;
@@ -33,15 +33,15 @@ namespace Game.Mechanics.Tower
         {
             if (!_manaMechanics)
                 _manaMechanics = GetComponent<ManaMechanics>();
-            if (!_towerOwnerMechanics)
-                _towerOwnerMechanics = GetComponent<TowerOwnerMechanics>();
+            if (!_towerOwner)
+                _towerOwner = GetComponent<TowerOwner>();
         }
 
         private void Awake()
         {
             _currentTowerPrice = _startTowerPrice;
             
-            _mobSpawnMechanics = _towerOwnerMechanics.MobSpawnMechanics;
+            _mobSpawnMechanics = _towerOwner.MobSpawnMechanics;
             _freeFieldMap = new Dictionary<int, bool>();
 
             int i = 0;
@@ -63,7 +63,7 @@ namespace Game.Mechanics.Tower
                 int fieldIndex = _freeFieldMap.Keys.ToList()[Random.Range(0, _freeFieldMap.Count)];
 
                 GameObject tower = Object.Instantiate(
-                    _towerOwnerMechanics.TowerPrefab[Random.Range(0, _towerOwnerMechanics.TowerPrefab.Length - 1)],
+                    _towerOwner.TowerConfigs[Random.Range(0, _towerOwner.TowerConfigs.Length - 1)].Prefab,
                     _gameField.transform.GetChild(fieldIndex));
 
                 TowerAttackMechanics towerAttackMechanics = tower.GetComponent<TowerAttackMechanics>();

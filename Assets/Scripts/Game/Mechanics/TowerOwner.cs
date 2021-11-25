@@ -6,10 +6,10 @@ using Game.Mechanics.Input;
 
 namespace Game.Mechanics
 {
-    public class TowerOwnerMechanics : MonoBehaviour
+    public class TowerOwner : MonoBehaviour
     {
         [SerializeField] private MobSpawnMechanics _mobSpawnMechanics;
-        [SerializeField] private GameObject[] _towerPrefabs = new GameObject[GameSettings.NumberOfTypeOfTower];
+        [SerializeField] private TowerConfig[] _towers = new TowerConfig[GameSettings.NumberOfTypeOfTower];
         [SerializeField] private InputMechanics _inputMechanics;
         
         public MobSpawnMechanics MobSpawnMechanics
@@ -17,9 +17,9 @@ namespace Game.Mechanics
             get => _mobSpawnMechanics;
         }
         
-        public GameObject[] TowerPrefab
+        public TowerConfig[] TowerConfigs
         {
-            get => _towerPrefabs;
+            get => _towers;
         }
 
         private void Start()
