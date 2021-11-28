@@ -8,7 +8,7 @@ namespace Game.Mechanics.Mob
     [RequireComponent(typeof(Collider2D))]
     public class MobHP : MonoBehaviour
     {
-        [SerializeField] private HpLabel _hpLabel;
+        [SerializeField] private MobHpLabel mobHpLabel;
         private int _startHp;
         private int _currentHp;
         
@@ -19,7 +19,7 @@ namespace Game.Mechanics.Mob
         {
             _startHp = startHp;
             _currentHp = startHp;
-            _hpLabel.SetHp(_currentHp);
+            mobHpLabel.SetHp(_currentHp);
         }
 
         public void ChangeHp(int changeHpTo)
@@ -31,7 +31,7 @@ namespace Game.Mechanics.Mob
                 return;
             }
             
-            _hpLabel.SetHp(_currentHp);
+            mobHpLabel.SetHp(_currentHp);
             ChangeHpEvent?.Invoke();
         }
 

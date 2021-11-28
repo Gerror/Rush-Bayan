@@ -39,7 +39,6 @@ namespace Game.Mechanics.Tower
         private void Extract()
         {
             ManaMechanics.ChangeMana((int) _manaIncrease.GetValue(_towerLevels.Levels));
-            Debug.Log("EXTRACT MANA " + ManaMechanics.name);
         }
     }
 }

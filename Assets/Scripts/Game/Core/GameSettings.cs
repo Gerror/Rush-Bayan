@@ -8,6 +8,7 @@ namespace Game.Core
     {
         public readonly static int NumberOfTypeOfTower = 5;
         public readonly static float MobUpdateInterval = 10f;
+        public readonly static int MaxPlayerHealth = 3;
         
         public enum LevelType
         {
