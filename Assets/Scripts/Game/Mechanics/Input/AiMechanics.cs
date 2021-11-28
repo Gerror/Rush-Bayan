@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using Game.Mechanics.Tower;
 
 namespace Game.Mechanics.Input
 {

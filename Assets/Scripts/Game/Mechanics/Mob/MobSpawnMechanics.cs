@@ -17,7 +17,7 @@ namespace Game.Mechanics.Mob
         private static int mobIdCounter = 0;
         
         private List<Vector3> _pointList;
-        [SerializeField] private OrderedDictionary _mobOrderedDictionary;
+        private OrderedDictionary _mobOrderedDictionary;
 
         private MobsHpUpdater _mobsHpUpdater;
         

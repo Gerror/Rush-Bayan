@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: -600483768331189784}
   - component: {fileID: 1535100144214218877}
   - component: {fileID: -4817723566605329323}
+  - component: {fileID: 2194759185715820188}
   m_Layer: 0
   m_Name: tower1
   m_TagString: Untagged
@@ -109,9 +110,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fa440044a09a8c44b7a9eccbf5a35fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 100
+  _damage:
+    _baseValue: 100
+    _modifiers:
+    - LevelType: 0
+      LevelModifiers:
+      - 0
+      - 100
+      - 200
+    - LevelType: 1
+      LevelModifiers:
+      - 0
+      - 0
+      - 0
+  _attackInterval:
+    _baseValue: 0.45
+    _modifiers:
+    - LevelType: 0
+      LevelModifiers:
+      - 0
+      - 0
+      - 0
+    - LevelType: 1
+      LevelModifiers:
+      - 0
+      - 0
+      - 0
   _bulletPrefab: {fileID: 8869960363283956353, guid: 2956c3a936f47aa45876b29dab8e44a3, type: 3}
-  _attackInterval: 0.45
   MobSpawnMechanics: {fileID: 0}
 --- !u!111 &-4817723566605329323
 Animation:
@@ -129,3 +154,16 @@ Animation:
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &2194759185715820188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916019519865568403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c943f26a20b74f4c9eb3e712377af36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levels: 0000000000000000

@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelText: {fileID: 4303692253328329395}
+  _manaCostText: {fileID: 0}
   _image: {fileID: 2349043023963517350}
 --- !u!1 &4303692253328329393
 GameObject:
@@ -128,10 +129,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 75
+    m_FontSize: 48
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 5
+    m_MinSize: 4
     m_MaxSize: 75
     m_Alignment: 4
     m_AlignByGeometry: 0
