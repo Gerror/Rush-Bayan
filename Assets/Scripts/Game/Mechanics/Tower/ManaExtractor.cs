@@ -14,12 +14,6 @@ namespace Game.Mechanics.Tower
         private TowerLevels _towerLevels;
         
         public ManaMechanics ManaMechanics;
-        
-        private void OnValidate()
-        {
-            _manaIncrease.OnValidate();
-            _interval.OnValidate();
-        }
 
         private void Start()
         {

@@ -4,6 +4,7 @@ using Game.Core;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Game.Mechanics.Mob;
+using Zenject;
 
 namespace Game.Mechanics.Tower.Attack
 {
@@ -17,12 +18,6 @@ namespace Game.Mechanics.Tower.Attack
         private ITowerAttack _towerAttack;
         private TowerLevels _towerLevels;
         public MobSpawnMechanics MobSpawnMechanics;
-
-        private void OnValidate()
-        {
-            _damage.OnValidate();
-            _attackInterval.OnValidate();
-        }
 
         private IEnumerator Attack()
         {

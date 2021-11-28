@@ -1,8 +1,11 @@
 {
-    "name": "GameCore",
+    "name": "GameControllers",
     "rootNamespace": "",
     "references": [
-        "GUID:0d8beb7f090555447a6cf5ce9e54dbb4"
+        "GUID:f54d21369543c5e4faf6a200444eb406",
+        "GUID:3044b5052def7fb4fbde8d541a2b320d",
+        "GUID:3e57f56563148eb4a979ed79db697540",
+        "GUID:5e53d9ff09d51d0439ed10a5b978ecc0"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

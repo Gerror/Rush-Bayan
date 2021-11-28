@@ -9,21 +9,23 @@ namespace Game.Mechanics.Input
         [SerializeField] private SpawnTowerUI _spawnTowerUi;
         [SerializeField] private ManaScreen _manaScreen;
         [SerializeField] private BaseLevelUpButton[] _levelUpButtons;
-        
+
+        private void Awake()
+        {
+            _spawnTowerUi.spawnTowerEvent += SpawnTower;
+            _manaMechanics.changeManaEvent += SetManaValue;   
+        }
+
         public override void StartInputMechanics()
         {
+            SetManaValue();
+            SetPriceValue();
+            
             _levelUpButtons = FindObjectsOfType<BaseLevelUpButton>();
             foreach (var levelUpButton in _levelUpButtons)
             {
                 levelUpButton.LevelUpEvent += LevelUp;
             }
-            
-            _spawnTowerUi.spawnTowerEvent += SpawnTower;
-
-            _manaMechanics.changeManaEvent += SetManaValue;
-
-            SetManaValue();
-            SetPriceValue();
         }
 
         private void SetManaValue()

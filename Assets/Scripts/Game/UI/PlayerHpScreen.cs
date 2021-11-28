@@ -1,5 +1,6 @@
 using Game.Core;
 using UnityEngine;
+using Zenject;
 
 namespace Game.UI
 {
@@ -9,23 +10,30 @@ namespace Game.UI
         [SerializeField] private GameObject _damagedHeartPrefab;
         [SerializeField] private bool _reverse = false;
         
+        private GameSettings _gameSettings;
+        
+        [Inject]
+        private void Construct(GameSettings gameSettings)
+        {
+            _gameSettings = gameSettings;
+        }
         
         public void SetHealth(int health)
         {
-            foreach (var child in transform)
+            foreach (Transform child in transform)
             {
-                Destroy((GameObject) child);
+                Destroy(child.gameObject);
             }
 
             if (!_reverse)
             {
-                ViewPrefabs(GameSettings.MaxPlayerHealth - health, _damagedHeartPrefab);
+                ViewPrefabs(_gameSettings.MaxPlayerHealth - health, _damagedHeartPrefab);
                 ViewPrefabs(health, _heartPrefab);
             }
             else
             {
-                ViewPrefabs(GameSettings.MaxPlayerHealth - health, _heartPrefab);
-                ViewPrefabs(health, _damagedHeartPrefab);
+                ViewPrefabs(health, _heartPrefab);
+                ViewPrefabs(_gameSettings.MaxPlayerHealth - health, _damagedHeartPrefab);
             }
         }
 

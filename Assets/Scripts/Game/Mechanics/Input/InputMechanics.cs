@@ -11,7 +11,7 @@ namespace Game.Mechanics.Input
         [SerializeField] protected TowerSpawnMechanics _towerSpawnMechanics;
         [SerializeField] protected ManaMechanics _manaMechanics;
 
-        public event Action<int> LevelUpEvent; 
+        public event Action<int> LevelUpEvent;
 
         protected void OnValidate()
         {
