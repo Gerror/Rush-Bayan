@@ -43,19 +43,13 @@ namespace Game.Mechanics.Tower
             get => _currentTowerPrice;
         }
 
-        private void OnValidate()
-        {
-            if (!_manaMechanics)
-                _manaMechanics = GetComponent<ManaMechanics>();
-            if (!_towerOwner)
-                _towerOwner = GetComponent<TowerOwner>();
-        }
-
         private void Awake()
         {
-            _currentTowerPrice = _startTowerPrice;
-            
+            _manaMechanics = GetComponent<ManaMechanics>();
+            _towerOwner = GetComponent<TowerOwner>();
             _mobSpawnMechanics = _towerOwner.MobSpawnMechanics;
+
+            _currentTowerPrice = _startTowerPrice;
             _freeFieldMap = new Dictionary<int, bool>();
 
             _gameManager.StartGameEvent += StartGame;
@@ -101,7 +95,6 @@ namespace Game.Mechanics.Tower
                 ManaExtractor manaExtractor = tower.GetComponent<ManaExtractor>();
                 if (manaExtractor)
                     manaExtractor.ManaMechanics = _manaMechanics;
-
                 
                 TowerSpawnEvent?.Invoke(towerIndex, tower);
                 _freeFieldMap.Remove(fieldIndex);

@@ -13,6 +13,8 @@ namespace Game.Mechanics.Mob
         private GameSettings _gameSettings;
         private GameManager _gameManager;
 
+        public event Action StartMobUpdaterEvent;
+
         [Inject]
         private void Construct(GameSettings gameSettings, GameManager gameManager)
         {
@@ -34,6 +36,7 @@ namespace Game.Mechanics.Mob
         {
             _currentCurrentStartMobHp = _startMobHp;
             StartCoroutine(UpdateMobHp());
+            StartMobUpdaterEvent?.Invoke();
         }
 
         private IEnumerator UpdateMobHp()

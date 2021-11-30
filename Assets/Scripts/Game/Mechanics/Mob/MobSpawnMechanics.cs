@@ -3,10 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using Game.Core;
-using UnityEditor.SceneManagement;
 using UnityEngine;
 using Zenject;
-using Object = UnityEngine.Object;
 
 namespace Game.Mechanics.Mob
 {
@@ -50,10 +48,10 @@ namespace Game.Mechanics.Mob
             _pointList = new List<Vector3>();
             _mobOrderedDictionary = new OrderedDictionary();
             
-            _gameManager.StartGameEvent += StartGame;
             _gameManager.EndGameEvent += EndGame;
             
             _mobsHpUpdater = GetComponent<MobsHpUpdater>();
+            _mobsHpUpdater.StartMobUpdaterEvent += StartGame;
             
             foreach (Transform pointTransform in _pointParent.transform)
             {

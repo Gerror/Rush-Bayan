@@ -12,7 +12,7 @@ namespace Game.Mechanics.Input
 
         private void Awake()
         {
-            _spawnTowerUi.spawnTowerEvent += SpawnTower;
+            _spawnTowerUi.SpawnTowerEvent += SpawnTower;
             _manaMechanics.changeManaEvent += SetManaValue;   
         }
 
