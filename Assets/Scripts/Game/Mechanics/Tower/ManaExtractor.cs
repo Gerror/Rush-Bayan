@@ -1,12 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Mechanics.Tower
 {
     [RequireComponent(typeof(TowerLevels))]
-    public class ManaExtractor : MonoBehaviour
+    public class ManaExtractor : TowerAction
     {
         [SerializeField] private ValueProvider _manaIncrease;
         [SerializeField] private ValueProvider _interval;
@@ -15,22 +13,13 @@ namespace Game.Mechanics.Tower
         
         public ManaMechanics ManaMechanics;
 
-        private void Start()
+        protected override void Init()
         {
             _towerLevels = GetComponent<TowerLevels>();
-            StartCoroutine(StartExtract());
+            _actionInterval = _interval.GetValue(_towerLevels.Levels);
         }
 
-        private IEnumerator StartExtract()
-        {
-            while (true)
-            {
-                yield return new WaitForSeconds(_interval.GetValue(_towerLevels.Levels));
-                Extract();
-            }
-        }
-
-        private void Extract()
+        protected override void TakeAction()
         {
             ManaMechanics.ChangeMana((int) _manaIncrease.GetValue(_towerLevels.Levels));
         }

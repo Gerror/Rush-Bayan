@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 1235730827651217840}
   - component: {fileID: -600483768331189784}
   - component: {fileID: 1535100144214218877}
-  - component: {fileID: -4817723566605329323}
   - component: {fileID: 2194759185715820188}
+  - component: {fileID: -5367354724742050928}
   m_Layer: 0
   m_Name: tower1
   m_TagString: Untagged
@@ -138,22 +138,8 @@ MonoBehaviour:
       - 0
   _bulletPrefab: {fileID: 8869960363283956353, guid: 2956c3a936f47aa45876b29dab8e44a3, type: 3}
   MobSpawnMechanics: {fileID: 0}
---- !u!111 &-4817723566605329323
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8916019519865568403}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 3a66340eba977c749a4e3e209764d5b1, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 3a66340eba977c749a4e3e209764d5b1, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  _animationClip: {fileID: 7400000, guid: 3a66340eba977c749a4e3e209764d5b1, type: 2}
+  _animation: {fileID: 0}
 --- !u!114 &2194759185715820188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,3 +153,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levels: 0000000000000000
+--- !u!95 &-5367354724742050928
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916019519865568403}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2e53e0dfc8ebaed46a252c635b956e17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

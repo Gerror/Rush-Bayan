@@ -1,15 +1,15 @@
-using System;
 using System.Collections;
 using Game.Core;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Game.Mechanics.Mob;
+using UnityEditor.SceneManagement;
 using Zenject;
 
 namespace Game.Mechanics.Tower.Attack
 {
     [RequireComponent(typeof(TowerLevels))]
-    public class TowerAttackMechanics : MonoBehaviour
+    public class TowerAttackMechanics : TowerAction
     {
         [SerializeField] private ValueProvider _damage;
         [SerializeField] private ValueProvider _attackInterval;
@@ -17,40 +17,34 @@ namespace Game.Mechanics.Tower.Attack
 
         private ITowerAttack _towerAttack;
         private TowerLevels _towerLevels;
+        private PrefabFactory _prefabFactory;
+        private Transform _tempObjectParent;
         public MobSpawnMechanics MobSpawnMechanics;
 
-        private IEnumerator Attack()
+        [Inject]
+        private void Contruct(PrefabFactory prefabFactory, Transform tempObjectParent)
         {
-            if (MobSpawnMechanics.MobOrderedDictionary.Count > 0)
-            {
-                AttackMob(_towerAttack.GetTargetMob());
-            }
-
-            while (true)
-            {
-                yield return new WaitForSeconds(_attackInterval.GetValue(_towerLevels.Levels));
-                if (MobSpawnMechanics.MobOrderedDictionary.Count > 0)
-                {
-                    AttackMob(_towerAttack.GetTargetMob());
-                }
-            }
+            _prefabFactory = prefabFactory;
+            _tempObjectParent = tempObjectParent;
         }
-
-        private void AttackMob(GameObject mob)
-        {
-            if (!mob)
-                return;
-
-            GameObject bulletGO = Object.Instantiate(_bulletPrefab, transform);
-            Bullet bullet = bulletGO.GetComponent<Bullet>();
-            bullet.Init(mob, (int) _damage.GetValue(_towerLevels.Levels));
-        }
-
-        private void Start()
+        
+        protected override void Init()
         {
             _towerAttack = GetComponent<ITowerAttack>();
             _towerLevels = GetComponent<TowerLevels>();
-            StartCoroutine(Attack());
+            _actionInterval = _attackInterval.GetValue(_towerLevels.Levels);
+        }
+
+        protected override void TakeAction()
+        {
+            if (MobSpawnMechanics.MobOrderedDictionary.Count > 0)
+            {
+                GameObject mob = _towerAttack.GetTargetMob();
+
+                GameObject bulletGO = _prefabFactory.Spawn(_bulletPrefab, _tempObjectParent);
+                Bullet bullet = bulletGO.GetComponent<Bullet>();
+                bullet.Init(mob, (int) _damage.GetValue(_towerLevels.Levels));
+            }
         }
     }
 }
