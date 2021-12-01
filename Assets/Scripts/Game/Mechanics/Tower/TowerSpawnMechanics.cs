@@ -4,6 +4,7 @@ using System.Linq;
 using Game.Core;
 using Game.Mechanics.Tower.Attack;
 using Game.Mechanics.Mob;
+using Game.UI;
 using UnityEngine;
 using Zenject;
 using Object = UnityEngine.Object;
@@ -28,15 +29,19 @@ namespace Game.Mechanics.Tower
         private PrefabFactory _prefabFactory;
         
         private Dictionary<int, bool> _freeFieldMap;
-    
+        private Dictionary<int, GameObject> _busyFieldMap;
+        
+        // fieldIndex, towerIndex, GameObject добавленной башни
+        public event Action<int, int, GameObject> TowerSpawnEvent;
+        // fieldIndex, towerIndex исчезающей башни
+        public event Action<int, int> TowerMergeEvent; 
+        
         [Inject]
         private void Construct(GameManager gameManager, PrefabFactory prefabFactory)
         {
             _gameManager = gameManager;
             _prefabFactory = prefabFactory;
         }
-        
-        public event Action<int, GameObject> TowerSpawnEvent; 
 
         public int CurrentTowerPrice
         {
@@ -51,8 +56,10 @@ namespace Game.Mechanics.Tower
 
             _currentTowerPrice = _startTowerPrice;
             _freeFieldMap = new Dictionary<int, bool>();
+            _busyFieldMap = new Dictionary<int, GameObject>();
 
             _gameManager.StartGameEvent += StartGame;
+            _gameManager.EndGameEvent += EndGame;
         }
 
         private void StartGame()
@@ -68,37 +75,72 @@ namespace Game.Mechanics.Tower
             }
         }
 
+        private void EndGame()
+        {
+            foreach (KeyValuePair<int, GameObject> pair  in _busyFieldMap)
+            {
+                Destroy(pair.Value);
+            }
+            _busyFieldMap.Clear();
+        }
+
         public void SpawnTower()
         {
             if (_freeFieldMap.Count > 0)
             {
+                int fieldIndex = _freeFieldMap.Keys.ToList()[Random.Range(0, _freeFieldMap.Count)];
+                SpawnTower(0, fieldIndex);
+            }
+        }
+
+        private void SpawnTower(int mergeLevel, int fieldIndex, bool isMerge = false)
+        {
+            if (!isMerge)
+            {
                 if (!_manaMechanics.ChangeMana(-1 * _currentTowerPrice))
                     return;
-                        
                 _currentTowerPrice += _priceIncrease;
-                
-                int fieldIndex = _freeFieldMap.Keys.ToList()[Random.Range(0, _freeFieldMap.Count)];
-
-                int towerIndex = Random.Range(0, _towerOwner.TowerConfigs.Length);
-
-                GameObject tower = _prefabFactory.Spawn(_towerOwner.TowerConfigs[towerIndex].Prefab, 
-                    _gameField.transform.GetChild(fieldIndex)); 
-
-                TowerLevels towerLevels = tower.GetComponent<TowerLevels>();
-                towerLevels.SetTowerOwner(_towerOwner);
-                towerLevels.SetCurrentBaseLevel(towerIndex);
-                
-                TowerAttackMechanics towerAttackMechanics = tower.GetComponent<TowerAttackMechanics>();
-                if (towerAttackMechanics)
-                    towerAttackMechanics.MobSpawnMechanics = _mobSpawnMechanics;
-
-                ManaExtractor manaExtractor = tower.GetComponent<ManaExtractor>();
-                if (manaExtractor)
-                    manaExtractor.ManaMechanics = _manaMechanics;
-                
-                TowerSpawnEvent?.Invoke(towerIndex, tower);
-                _freeFieldMap.Remove(fieldIndex);
             }
+
+            int towerIndex = Random.Range(0, _towerOwner.TowerConfigs.Length);
+
+            GameObject towerGo = _prefabFactory.Spawn(_towerOwner.TowerConfigs[towerIndex].Prefab, 
+                _gameField.transform.GetChild(fieldIndex)); 
+                
+            Tower tower = towerGo.GetComponent<Tower>();
+            tower.Init(_towerOwner, mergeLevel, fieldIndex, towerIndex);
+            tower.MergeEvent += MergeTowers;
+
+            TowerAttackMechanics towerAttackMechanics = towerGo.GetComponent<TowerAttackMechanics>();
+            if (towerAttackMechanics)
+                towerAttackMechanics.MobSpawnMechanics = _mobSpawnMechanics;
+
+            ManaExtractor manaExtractor = towerGo.GetComponent<ManaExtractor>();
+            if (manaExtractor)
+                manaExtractor.ManaMechanics = _manaMechanics;
+
+            GameObject towerMergeLevelView = _prefabFactory.Spawn(
+                _towerOwner.TowerConfigs[towerIndex].GetMergeView(mergeLevel),
+                towerGo.transform);
+            
+            TowerSpawnEvent?.Invoke(fieldIndex, towerIndex, towerGo);
+            _freeFieldMap.Remove(fieldIndex);
+            _busyFieldMap.Add(fieldIndex, towerGo);
+        }
+
+        private void MergeTowers(int fieldMainTower, int fieldSecondTower, int towerIndex, int currentMergeLevel)
+        {
+            DeleteTower(fieldMainTower, towerIndex);
+            DeleteTower(fieldSecondTower, towerIndex);
+            SpawnTower(currentMergeLevel + 1, fieldMainTower, true);
+        }
+
+        private void DeleteTower(int fieldIndex, int towerIndex)
+        {
+            _freeFieldMap.Add(fieldIndex, true);
+            Destroy(_busyFieldMap[fieldIndex]);
+            _busyFieldMap.Remove(fieldIndex);
+            TowerMergeEvent?.Invoke(fieldIndex, towerIndex);
         }
     }
 }

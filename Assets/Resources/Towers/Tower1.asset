@@ -14,3 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefab: {fileID: 8916019519865568403, guid: b1013b6847c3ed44aa5b5f1dd707a167, type: 3}
   Sprite: {fileID: 21300000, guid: 978cc0cf6b268704f91900ddf55de33e, type: 3}
+  _mergeViews:
+  - {fileID: 7766993548458164623, guid: 72bd8c30514973c47bbf7a2cb0df0149, type: 3}
+  - {fileID: 8550736221741639691, guid: 5149cc45265163f4f8a2e161458cce99, type: 3}
+  - {fileID: 4143366802879456615, guid: 44b23d8207f0de4408262fc6633f6a3f, type: 3}
+  - {fileID: 3980487140272479813, guid: a03672fbfd26b3b4cab60c90ffbbd468, type: 3}
+  - {fileID: 1496456625618665254, guid: 003ff9923a4c1704d95d036e57541d8c, type: 3}

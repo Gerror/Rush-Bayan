@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Game.Core;
 using Game.Mechanics;
@@ -6,7 +5,7 @@ using UnityEngine;
 using Game.UI;
 using Zenject;
 
-namespace Game.Mechanics
+namespace Game.Controllers
 {
     public class BaseLevelUpController : MonoBehaviour
     {

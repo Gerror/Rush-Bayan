@@ -18,7 +18,7 @@ namespace Game.Mechanics
         [SerializeField] private TowerSpawnMechanics _towerSpawnMechanics;
         [SerializeField] private PlayerHp _playerHp;
         
-        private List<GameObject>[] _towers;
+        private Dictionary<int, GameObject>[] _towers;
         private int[] _baseLevels;
         
         private GameSettings _gameSettings;
@@ -44,9 +44,9 @@ namespace Game.Mechanics
         private void Awake()
         {
             _baseLevels = new int[_gameSettings.NumberOfTypeOfTower];
-            _towers = new List<GameObject>[_gameSettings.NumberOfTypeOfTower];
+            _towers = new Dictionary<int, GameObject>[_gameSettings.NumberOfTypeOfTower];
             for (int i = 0; i < _towers.Length; i++)
-                _towers[i] = new List<GameObject>();
+                _towers[i] = new Dictionary<int, GameObject>();
 
             _gameManager.EndGameEvent += EndGame;
             _gameManager.StartGameEvent += StartGame;
@@ -58,10 +58,6 @@ namespace Game.Mechanics
                 _baseLevels[i] = 0;
             foreach (var towerList in _towers)
             {
-                foreach (var tower in towerList)
-                {
-                    Destroy(tower);
-                }
                 towerList.Clear();
             }
         }
@@ -74,6 +70,7 @@ namespace Game.Mechanics
         private void Start()
         {
             _towerSpawnMechanics.TowerSpawnEvent += AddTower;
+            _towerSpawnMechanics.TowerMergeEvent += DeleteTower;
             _mobSpawnMechanics.MobEndMovementEvent += GetDamaged;
             _playerHp.DeadEvent += Dead;
         }
@@ -89,9 +86,14 @@ namespace Game.Mechanics
             GetDamagedEvent?.Invoke(_playerHp.CurrentHp, IsPlayer);
         }
 
-        private void AddTower(int towerIndex, GameObject towerGo)
+        private void AddTower(int fieldIndex, int towerIndex, GameObject towerGo)
         {
-            _towers[towerIndex].Add(towerGo);
+            _towers[towerIndex].Add(fieldIndex, towerGo);
+        }
+
+        private void DeleteTower(int fieldIndex, int towerIndex)
+        {
+            _towers[towerIndex].Remove(fieldIndex);
         }
 
         public bool BaseLevelUp(int towerIndex)
@@ -101,9 +103,9 @@ namespace Game.Mechanics
 
             _baseLevels[towerIndex]++;
 
-            foreach (var towerGo in _towers[towerIndex])
+            foreach (KeyValuePair<int, GameObject> pair in _towers[towerIndex])
             {
-                TowerLevels towerLevels = towerGo.GetComponent<TowerLevels>();
+                TowerLevels towerLevels = pair.Value.GetComponent<TowerLevels>();
                 towerLevels.LevelUp(LevelType.BaseLevel);
             }
             
