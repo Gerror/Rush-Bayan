@@ -1101,7 +1101,6 @@ Transform:
   m_Children:
   - {fileID: 1779927166}
   - {fileID: 1527003059}
-  - {fileID: 1672870409}
   m_Father: {fileID: 1607484167}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10841,6 +10840,8 @@ Transform:
   - {fileID: 1108458339}
   - {fileID: 414644562}
   - {fileID: 1455182888}
+  - {fileID: 1672870409}
+  - {fileID: 1992758628}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10967,8 +10968,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1672870409}
   - component: {fileID: 1672870410}
+  - component: {fileID: 1672870411}
   m_Layer: 0
-  m_Name: LevelUpControllers
+  m_Name: PlayerLevelUpControllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10981,12 +10983,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1672870408}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 475757881}
-  m_RootOrder: 2
+  m_Father: {fileID: 1599128549}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1672870410
 MonoBehaviour:
@@ -11000,11 +11002,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a4da75aaf0aff44b24175397c5e6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerOwner: {fileID: 475757885}
+  _manaCostProvider: {fileID: 1672870411}
+  LevelScreens: []
+--- !u!114 &1672870411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1672870408}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4226dc93a24455f4888797377e2653a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _startManaCost: 100
   _manaCostIncrease: 100
-  _towerOwner: {fileID: 475757885}
   _manaCosts: 
-  LevelScreens: []
 --- !u!1 &1675815739
 GameObject:
   m_ObjectHideFlags: 0
@@ -11238,7 +11253,6 @@ Transform:
   m_Children:
   - {fileID: 1952940097}
   - {fileID: 1232050508}
-  - {fileID: 1992758628}
   m_Father: {fileID: 1607484167}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11270,6 +11284,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerSpawnMechanics: {fileID: 1752026009}
   _manaMechanics: {fileID: 1752026007}
+  _manaCostProvider: {fileID: 1992758630}
 --- !u!114 &1752026009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12290,8 +12305,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1992758628}
   - component: {fileID: 1992758629}
+  - component: {fileID: 1992758630}
   m_Layer: 0
-  m_Name: LevelUpControllers
+  m_Name: EnemyLevelUpControllers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12304,12 +12320,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992758627}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1752026006}
-  m_RootOrder: 2
+  m_Father: {fileID: 1599128549}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1992758629
 MonoBehaviour:
@@ -12323,11 +12339,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9a4da75aaf0aff44b24175397c5e6ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _towerOwner: {fileID: 1752026010}
+  _manaCostProvider: {fileID: 1992758630}
+  LevelScreens: []
+--- !u!114 &1992758630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992758627}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4226dc93a24455f4888797377e2653a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   _startManaCost: 100
   _manaCostIncrease: 100
-  _towerOwner: {fileID: 1752026010}
   _manaCosts: 
-  LevelScreens: []
 --- !u!1 &2007439243
 GameObject:
   m_ObjectHideFlags: 0

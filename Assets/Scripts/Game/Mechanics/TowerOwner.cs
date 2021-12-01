@@ -18,22 +18,26 @@ namespace Game.Mechanics
         [SerializeField] private TowerSpawnMechanics _towerSpawnMechanics;
         [SerializeField] private PlayerHp _playerHp;
         
-        private Dictionary<int, GameObject>[] _towers;
+        private Dictionary<int, Tower.Tower>[] _towers;
         private int[] _baseLevels;
+        private int _towerCount;
         
         private GameSettings _gameSettings;
         private GameManager _gameManager;
 
-        public event Action DeadEvent;
+        public event Action<bool> DeadEvent;
         public event Action<int, bool> GetDamagedEvent;
         public bool IsPlayer = false;
-        
+
+        public int TowerCount => _towerCount;
+
         public int[] BaseLevels => _baseLevels;
         public InputMechanics InputMechanics => _inputMechanics;
         public MobSpawnMechanics MobSpawnMechanics => _mobSpawnMechanics;
         public ManaMechanics ManaMechanics => _manaMechanics;
         public TowerConfig[] TowerConfigs => _towerConfigs;
-        
+        public Dictionary<int, Tower.Tower>[] Towers => _towers;
+
         [Inject]
         private void Construct(GameSettings gameSettings, GameManager gameManager)
         {
@@ -44,9 +48,9 @@ namespace Game.Mechanics
         private void Awake()
         {
             _baseLevels = new int[_gameSettings.NumberOfTypeOfTower];
-            _towers = new Dictionary<int, GameObject>[_gameSettings.NumberOfTypeOfTower];
+            _towers = new Dictionary<int, Tower.Tower>[_gameSettings.NumberOfTypeOfTower];
             for (int i = 0; i < _towers.Length; i++)
-                _towers[i] = new Dictionary<int, GameObject>();
+                _towers[i] = new Dictionary<int, Tower.Tower>();
 
             _gameManager.EndGameEvent += EndGame;
             _gameManager.StartGameEvent += StartGame;
@@ -64,6 +68,7 @@ namespace Game.Mechanics
 
         private void StartGame()
         {
+            _towerCount = 0;
             _inputMechanics.StartInputMechanics();
         }
 
@@ -77,7 +82,7 @@ namespace Game.Mechanics
 
         private void Dead()
         {
-            DeadEvent?.Invoke();
+            DeadEvent?.Invoke(IsPlayer);
         }
         
         private void GetDamaged()
@@ -86,13 +91,15 @@ namespace Game.Mechanics
             GetDamagedEvent?.Invoke(_playerHp.CurrentHp, IsPlayer);
         }
 
-        private void AddTower(int fieldIndex, int towerIndex, GameObject towerGo)
+        private void AddTower(int fieldIndex, int towerIndex, Tower.Tower tower)
         {
-            _towers[towerIndex].Add(fieldIndex, towerGo);
+            _towerCount++;
+            _towers[towerIndex].Add(fieldIndex, tower);
         }
 
         private void DeleteTower(int fieldIndex, int towerIndex)
         {
+            _towerCount--;
             _towers[towerIndex].Remove(fieldIndex);
         }
 
@@ -103,9 +110,9 @@ namespace Game.Mechanics
 
             _baseLevels[towerIndex]++;
 
-            foreach (KeyValuePair<int, GameObject> pair in _towers[towerIndex])
+            foreach (KeyValuePair<int, Tower.Tower> pair in _towers[towerIndex])
             {
-                TowerLevels towerLevels = pair.Value.GetComponent<TowerLevels>();
+                TowerLevels towerLevels = pair.Value.gameObject.GetComponent<TowerLevels>();
                 towerLevels.LevelUp(LevelType.BaseLevel);
             }
             

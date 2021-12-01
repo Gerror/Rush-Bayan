@@ -31,8 +31,8 @@ namespace Game.Mechanics.Tower
         private Dictionary<int, bool> _freeFieldMap;
         private Dictionary<int, GameObject> _busyFieldMap;
         
-        // fieldIndex, towerIndex, GameObject добавленной башни
-        public event Action<int, int, GameObject> TowerSpawnEvent;
+        // fieldIndex, towerIndex, Tower добавленной башни
+        public event Action<int, int, Tower> TowerSpawnEvent;
         // fieldIndex, towerIndex исчезающей башни
         public event Action<int, int> TowerMergeEvent; 
         
@@ -123,7 +123,7 @@ namespace Game.Mechanics.Tower
                 _towerOwner.TowerConfigs[towerIndex].GetMergeView(mergeLevel),
                 towerGo.transform);
             
-            TowerSpawnEvent?.Invoke(fieldIndex, towerIndex, towerGo);
+            TowerSpawnEvent?.Invoke(fieldIndex, towerIndex, tower);
             _freeFieldMap.Remove(fieldIndex);
             _busyFieldMap.Add(fieldIndex, towerGo);
         }

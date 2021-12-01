@@ -96,6 +96,14 @@ namespace Game.Controllers
             else
                 _enemyHpScreen.SetHealth(health);
         }
+
+        public void SetEndGameText(bool deadPlayer)
+        {
+            if (deadPlayer)
+                _endGameWindow.SetEndGameText("Поражение!");
+            else
+                _endGameWindow.SetEndGameText("Победа!");
+        }
         
         private void PlayClickAudio()
         {

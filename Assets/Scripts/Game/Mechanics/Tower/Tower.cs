@@ -44,15 +44,26 @@ namespace Game.Mechanics.Tower
 
         public void Merge(Tower _secondTower)
         {
-            if (_secondTower._towerLevels.Levels[(int) LevelType.MergeLevel] !=
-                _towerLevels.Levels[(int) LevelType.MergeLevel])
-                return;
-
-            if (_towerLevels.Levels[(int) LevelType.MergeLevel] ==
-                _gameSettings.MaxLevels[(int) LevelType.MergeLevel] - 1)
+            if (!CanMerge(_secondTower))
                 return;
             
             MergeEvent?.Invoke(FieldIndex, _secondTower.FieldIndex, TowerIndex, _towerLevels.Levels[(int) LevelType.MergeLevel]);
+        }
+
+        public bool CanMerge(Tower _secondTower)
+        {
+            if (_secondTower == this)
+                return false;
+            
+            if (_secondTower._towerLevels.Levels[(int) LevelType.MergeLevel] !=
+                _towerLevels.Levels[(int) LevelType.MergeLevel])
+                return false;
+
+            if (_towerLevels.Levels[(int) LevelType.MergeLevel] ==
+                _gameSettings.MaxLevels[(int) LevelType.MergeLevel] - 1)
+                return false;
+
+            return true;
         }
     }
 }

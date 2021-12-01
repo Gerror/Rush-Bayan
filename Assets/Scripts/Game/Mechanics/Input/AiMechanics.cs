@@ -1,19 +1,24 @@
-using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Game.Mechanics.Input
 {
     public class AiMechanics : InputMechanics
     {
+        [SerializeField] private ManaCostProvider _manaCostProvider;
+        [SerializeField] private int minTowers = 4;
+        private TowerOwner _towerOwner;
+        
         private void Awake()
         {
-            _manaMechanics.changeManaToEvent += ManaMenegment;   
+            _towerOwner = GetComponent<TowerOwner>();
         }
 
         public override void StartInputMechanics()
         {
             StartCoroutine(StartingActions());
+            StartCoroutine(CurrentInput());
         }
 
         private IEnumerator StartingActions()
@@ -25,12 +30,93 @@ namespace Game.Mechanics.Input
             }
         }
 
-        private void ManaMenegment(int changeManaTo)
+        private IEnumerator CurrentInput()
         {
-            if (_manaMechanics.CurrentMana >= _towerSpawnMechanics.CurrentTowerPrice && changeManaTo > 0)
+            while (true)
             {
-                _towerSpawnMechanics.SpawnTower();
+                yield return new WaitForSeconds(1f);
+
+                (bool iCanSpawnTower, int priceSpawnTower) = CheckSpawnTower();
+                (bool iCanLevelUp, int priceLevelUp, int towerIndex) = CheckLevelUp();
+
+                if (iCanLevelUp && iCanSpawnTower)
+                {
+                    if (priceSpawnTower >= priceLevelUp)
+                        _towerSpawnMechanics.SpawnTower();
+                    else
+                        LevelUp(towerIndex);
+                }
+                else if (iCanSpawnTower)
+                    _towerSpawnMechanics.SpawnTower();
+                else if (iCanLevelUp)
+                    LevelUp(towerIndex);
+
+
+                if (_towerOwner.TowerCount > minTowers)
+                {
+                    (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) = CheckMergeTower();
+                    if (iCanMergeTowers)
+                    {
+                        mainTower.Merge(secondTower);
+                    }
+                }
             }
         }
+
+        private (bool iCanSpawnTower, int price) CheckSpawnTower()
+        {
+            if (_manaMechanics.CurrentMana >= _towerSpawnMechanics.CurrentTowerPrice)
+                return (true, _towerSpawnMechanics.CurrentTowerPrice);
+            return (false, -1);
+        }
+
+        private (bool iCanLevelUp, int price, int towerIndex) CheckLevelUp()
+        {
+            int minLevelUpPrice = 0;
+            int levelUpTowerIndex = 0;
+            
+            
+            bool hasTowers = false;
+            for (int i = 0; i < _towerOwner.Towers.Length; i++)
+            {
+                Dictionary<int, Tower.Tower> dictionary = _towerOwner.Towers[i];
+                if (dictionary.Count > 0)
+                {
+                    hasTowers = true;
+                    int manaCost = _manaCostProvider.GetManaCost(i);
+                    if (minLevelUpPrice == 0 || minLevelUpPrice > manaCost)
+                    {
+                        minLevelUpPrice = manaCost;
+                        levelUpTowerIndex = i;
+                    }
+                }
+            }
+
+            if (hasTowers && _manaMechanics.CurrentMana >= minLevelUpPrice)
+                return (true, minLevelUpPrice, levelUpTowerIndex);
+            return (false, -1, -1);
+        }
+
+        private (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) CheckMergeTower()
+        {
+            for (int i = 0; i < _towerOwner.Towers.Length; i++)
+            {
+                Dictionary<int, Tower.Tower> dictionary = _towerOwner.Towers[i];
+                if (dictionary.Count > 1)
+                {
+                    foreach (var tower1 in dictionary.Values)
+                    {
+                        foreach (var tower2 in dictionary.Values)
+                        {
+                            if (tower1.CanMerge(tower2))
+                                return (true, tower1, tower2);
+                        }
+                    }
+                }
+            }
+
+            return (false, null, null);
+        }
+        
     }
 }
