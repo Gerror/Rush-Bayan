@@ -1,5 +1,6 @@
 using System;
 using Game.Core;
+using Game.Core.Sounds;
 using Game.Helpers;
 using Game.UI;
 using UnityEngine;
@@ -16,17 +17,19 @@ namespace Game.Controllers
         [SerializeField] private GameObject _gameElements;
         [SerializeField] private PlayerHpScreen _playerHpScreen;
         [SerializeField] private PlayerHpScreen _enemyHpScreen;
-
+        [SerializeField] private AudioClip _clickAudio;
         public event Action StartGameEvent;
         
         private GameManager _gameManager;
         private GameSettings _gameSettings;
+        private SoundManager _soundManager;
         
         [Inject]
-        private void Construct(GameManager gameManager, GameSettings gameSettings)
+        private void Construct(GameManager gameManager, GameSettings gameSettings, SoundManager soundManager)
         {
             _gameManager = gameManager;
             _gameSettings = gameSettings;
+            _soundManager = soundManager;
         }
 
         private void Start()
@@ -47,6 +50,7 @@ namespace Game.Controllers
 
         private void StartGame()
         {
+            PlayClickAudio();
             _gameWindow.SetActive(true);
             _gameElements.SetActive(true);
             _mainMenuWindow.gameObject.SetActive(false);
@@ -60,6 +64,7 @@ namespace Game.Controllers
 
         private void EndGame()
         {
+            PlayClickAudio();
             _endGameWindow.gameObject.SetActive(true);
             
             _gameWindow.SetActive(false);
@@ -68,12 +73,14 @@ namespace Game.Controllers
 
         private void OpenAboutMe()
         {
+            PlayClickAudio();
             _aboutMeWindow.gameObject.SetActive(true);
             _mainMenuWindow.gameObject.SetActive(false);
         }
 
         private void OpenMainMenu()
         {
+            PlayClickAudio();
             _mainMenuWindow.gameObject.SetActive(true);
             
             _aboutMeWindow.gameObject.SetActive(false);
@@ -88,6 +95,11 @@ namespace Game.Controllers
                 _playerHpScreen.SetHealth(health);
             else
                 _enemyHpScreen.SetHealth(health);
+        }
+        
+        private void PlayClickAudio()
+        {
+            _soundManager.CreateSoundObject().Play(_clickAudio, transform.position, false, 0.25f);
         }
     }
 }

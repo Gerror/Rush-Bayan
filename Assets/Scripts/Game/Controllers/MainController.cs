@@ -1,4 +1,5 @@
 using Game.Core;
+using Game.Core.Sounds;
 using Game.Mechanics;
 using UnityEngine;
 using Zenject;
@@ -10,13 +11,16 @@ namespace Game.Controllers
         [SerializeField] private MainUiController _mainUiController;
         [SerializeField] private TowerOwner _player;
         [SerializeField] private TowerOwner _enemy;
-
+        [SerializeField] private AudioClip _backgroundAudio;
+        
         private GameManager _gameManager;
+        private SoundManager _soundManager;
         
         [Inject]
-        private void Construct(GameManager gameManager)
+        private void Construct(GameManager gameManager, SoundManager soundManager)
         {
             _gameManager = gameManager;
+            _soundManager = soundManager;
         }
         
         private void Start()
@@ -27,6 +31,8 @@ namespace Game.Controllers
             _player.GetDamagedEvent += GetDamaged;
             _enemy.DeadEvent += EndGame;
             _enemy.GetDamagedEvent += GetDamaged;
+            
+            _soundManager.CreateSoundObject().Play(_backgroundAudio, transform.position, true, 0.1f); 
         }
 
         private void GetDamaged(int currentHp, bool isPlayer)

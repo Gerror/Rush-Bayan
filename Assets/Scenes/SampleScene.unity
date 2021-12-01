@@ -987,6 +987,7 @@ MonoBehaviour:
   _mainUiController: {fileID: 1108458340}
   _player: {fileID: 475757885}
   _enemy: {fileID: 1752026010}
+  _backgroundAudio: {fileID: 8300000, guid: c1cb8d43c3738bb4dab0ba91cacf7f70, type: 3}
 --- !u!1 &422481943
 GameObject:
   m_ObjectHideFlags: 0
@@ -9413,6 +9414,7 @@ MonoBehaviour:
   _gameElements: {fileID: 1607484166}
   _playerHpScreen: {fileID: 776785694}
   _enemyHpScreen: {fileID: 399030256}
+  _clickAudio: {fileID: 8300000, guid: 49bae4ba6ee370645bcc6a819d9b7a16, type: 3}
 --- !u!1 &1119148568
 GameObject:
   m_ObjectHideFlags: 0
