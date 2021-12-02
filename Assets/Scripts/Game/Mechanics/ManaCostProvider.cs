@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Game.Core;
 using UnityEngine;
@@ -12,6 +13,8 @@ namespace Game.Mechanics
         [SerializeField] private List<int> _manaCosts;
         private GameManager _gameManager;
         private GameSettings _gameSettings;
+
+        public event Action ManaCostsReadyEvent;
         
         [Inject]
         private void Construct(GameSettings gameSettings, GameManager gameManager)
@@ -43,6 +46,7 @@ namespace Game.Mechanics
             {
                 _manaCosts.Add(_startManaCost);
             }
+            ManaCostsReadyEvent?.Invoke();
         }
 
         private void EndGame()

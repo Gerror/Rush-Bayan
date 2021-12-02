@@ -26,7 +26,7 @@ namespace Game.Controllers
 
         private void Awake()
         {
-            _gameManager.StartGameEvent += StartGame;
+            _manaCostProvider.ManaCostsReadyEvent += StartGame;
             _towerOwner.InputMechanics.LevelUpEvent += LevelUp;
         }
 
