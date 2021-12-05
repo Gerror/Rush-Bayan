@@ -43,8 +43,7 @@ namespace Game.Mechanics.Mob
                 if (bullet.Target == gameObject)
                 {
                     ChangeHp(-1 * bullet.Damage);
-                    bullet.OnExplosion();
-                    Destroy(other.gameObject);
+                    bullet.DestroyBullet();
                 }
             }
         }

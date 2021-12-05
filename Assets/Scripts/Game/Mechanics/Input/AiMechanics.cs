@@ -7,7 +7,8 @@ namespace Game.Mechanics.Input
     public class AiMechanics : InputMechanics
     {
         [SerializeField] private ManaCostProvider _manaCostProvider;
-        [SerializeField] private int minTowers = 4;
+        [Min(2)] [SerializeField] private int minTowersForMerge = 10;
+        [Min(1)] [SerializeField] private int minTowersForLevelUp = 3;
         private TowerOwner _towerOwner;
         
         private void Awake()
@@ -50,9 +51,8 @@ namespace Game.Mechanics.Input
                     _towerSpawnMechanics.SpawnTower();
                 else if (iCanLevelUp)
                     LevelUp(towerIndex);
-
-
-                if (_towerOwner.TowerCount > minTowers)
+                
+                if (_towerOwner.TowerCount > minTowersForMerge)
                 {
                     (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) = CheckMergeTower();
                     if (iCanMergeTowers)
@@ -80,7 +80,7 @@ namespace Game.Mechanics.Input
             for (int i = 0; i < _towerOwner.Towers.Length; i++)
             {
                 Dictionary<int, Tower.Tower> dictionary = _towerOwner.Towers[i];
-                if (dictionary.Count > 0)
+                if (dictionary.Count >= minTowersForLevelUp)
                 {
                     hasTowers = true;
                     int manaCost = _manaCostProvider.GetManaCost(i);

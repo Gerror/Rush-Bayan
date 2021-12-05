@@ -6,12 +6,13 @@ namespace Game.Mechanics.Tower.Attack
     {
         [SerializeField] private float _speed;
 
-        private int _damage;
-        [SerializeField] private GameObject _target;
+        private ValueProvider _damage;
+        protected Tower _tower;
+        [SerializeField] protected GameObject _target;
 
         public int Damage
         {
-            get => _damage;
+            get => (int) _damage.GetValue(_tower.TowerLevels.Levels);
         }
 
         public GameObject Target
@@ -19,9 +20,10 @@ namespace Game.Mechanics.Tower.Attack
             get => _target;
         }
 
-        public void Init(GameObject target, int damage)
+        public void Init(GameObject target, ValueProvider damage, Tower tower)
         {
             _damage = damage;
+            _tower = tower;
             _target = target;
         }
 
@@ -39,6 +41,9 @@ namespace Game.Mechanics.Tower.Attack
             }
         }
 
-        public virtual void OnExplosion() {}
+        public virtual void DestroyBullet()
+        {
+            Destroy(gameObject);
+        }
     }
 }

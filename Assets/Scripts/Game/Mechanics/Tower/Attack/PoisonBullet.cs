@@ -24,8 +24,14 @@ namespace Game.Mechanics.Tower.Attack
             _prefabFactory = prefabFactory;
             _tempObjectParent = tempObjectParent;
         }
-        
-        public override void OnExplosion()
+
+        public override void DestroyBullet()
+        {
+            OnExplosion();
+            Destroy(gameObject);
+        }
+
+        private void OnExplosion()
         {
             GameObject poissonCloudGo = _prefabFactory.Spawn(_poissonCloud, 
                 transform.position, Quaternion.identity, _tempObjectParent);

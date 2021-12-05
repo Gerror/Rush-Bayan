@@ -13,9 +13,12 @@ GameObject:
   - component: {fileID: -8116274480239947222}
   - component: {fileID: -2266473319263378500}
   - component: {fileID: -1501750587840648439}
+  - component: {fileID: -7688288181706654899}
+  - component: {fileID: 1432342732041637252}
+  - component: {fileID: 6770659197191079222}
   - component: {fileID: 1012589074762637070}
   m_Layer: 3
-  m_Name: tower5
+  m_Name: Tower5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 39c2f43d2f128824393da3b1044d6863, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 01bd12d8716d73f468ba14c89d9c0c1e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -144,6 +147,78 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.4}
   m_EdgeRadius: 0
+--- !u!114 &-7688288181706654899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752562759048568327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 058704a848f2db84182cf8136ffbcaa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1432342732041637252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752562759048568327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fa440044a09a8c44b7a9eccbf5a35fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage:
+    _baseValue: 33
+    _modifiers:
+    - LevelType: 0
+      LevelModifiers:
+      - 0
+      - 27
+      - 54
+      - 81
+      - 108
+    - LevelType: 1
+      LevelModifiers:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+  _attackInterval:
+    _baseValue: 1.4
+    _modifiers:
+    - LevelType: 0
+      LevelModifiers:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+    - LevelType: 1
+      LevelModifiers:
+      - 0
+      - -0.7
+      - -0.93
+      - -1.05
+      - -1.12
+  _bulletPrefab: {fileID: 8869960363283956353, guid: d99a695623c737c40b93e213af540e62, type: 3}
+--- !u!114 &6770659197191079222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5752562759048568327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c943f26a20b74f4c9eb3e712377af36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levels: 0000000000000000
 --- !u!114 &1012589074762637070
 MonoBehaviour:
   m_ObjectHideFlags: 0

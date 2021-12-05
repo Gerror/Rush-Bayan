@@ -11285,6 +11285,7 @@ MonoBehaviour:
   _towerSpawnMechanics: {fileID: 1752026009}
   _manaMechanics: {fileID: 1752026007}
   _manaCostProvider: {fileID: 1992758630}
+  minTowers: 10
 --- !u!114 &1752026009
 MonoBehaviour:
   m_ObjectHideFlags: 0

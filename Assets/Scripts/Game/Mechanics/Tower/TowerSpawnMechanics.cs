@@ -108,16 +108,8 @@ namespace Game.Mechanics.Tower
                 _gameField.transform.GetChild(fieldIndex)); 
                 
             Tower tower = towerGo.GetComponent<Tower>();
-            tower.Init(_towerOwner, mergeLevel, fieldIndex, towerIndex);
+            tower.Init(_towerOwner, _mobSpawnMechanics, _manaMechanics, mergeLevel, fieldIndex, towerIndex);
             tower.MergeEvent += MergeTowers;
-
-            TowerAttackMechanics towerAttackMechanics = towerGo.GetComponent<TowerAttackMechanics>();
-            if (towerAttackMechanics)
-                towerAttackMechanics.MobSpawnMechanics = _mobSpawnMechanics;
-
-            ManaExtractor manaExtractor = towerGo.GetComponent<ManaExtractor>();
-            if (manaExtractor)
-                manaExtractor.ManaMechanics = _manaMechanics;
 
             GameObject towerMergeLevelView = _prefabFactory.Spawn(
                 _towerOwner.TowerConfigs[towerIndex].GetMergeView(mergeLevel),
