@@ -9,7 +9,8 @@ namespace Game.Mechanics.Tower
     {
         protected Animator _animator;
         protected float _actionInterval;
-
+        protected Tower _tower;
+        
         protected IEnumerator ActionCoroutine()
         {
             TakeActionWithTrigger();
@@ -25,17 +26,22 @@ namespace Game.Mechanics.Tower
             _animator.SetTrigger("Action");
             TakeAction();
         }
+
+        protected void PreInit()
+        {
+            Init();
+            StartCoroutine(ActionCoroutine());
+        }
         
         protected abstract void Init();
         protected abstract void TakeAction();
 
-        protected void Start()
+        protected void Awake()
         {
             _animator = GetComponent<Animator>();
-
-            Init();
+            _tower = GetComponent<Tower>();
             
-            StartCoroutine(ActionCoroutine());
+            _tower.InitEvent += PreInit;
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Game.Core;
+using Game.Mechanics.Mob;
 using UnityEngine;
 using Zenject;
 
@@ -19,27 +20,38 @@ namespace Game.Mechanics.Tower
 
         private TowerLevels _towerLevels;
         private GameSettings _gameSettings;
+        private MobSpawnMechanics _mobSpawnMechanics;
+        private ManaMechanics _manaMechanics;
 
+        public event Action InitEvent;
         public TowerOwner TowerOwner => _towerOwner;
+        public ManaMechanics ManaMechanics => _manaMechanics;
+        public MobSpawnMechanics MobSpawnMechanics => _mobSpawnMechanics;
+        public TowerLevels TowerLevels => _towerLevels;
+
         public int TowerIndex => _towerIndex;
         public int FieldIndex => _fieldIndex;
-
+        
         [Inject]
         private void Construct(GameSettings gameSettings)
         {
             _gameSettings = gameSettings;
         }
 
-        public void Init(TowerOwner towerOwner, int mergeLevel, int fieldIndex, int towerIndex)
+        public void Init(TowerOwner towerOwner, MobSpawnMechanics mobSpawnMechanics,
+            ManaMechanics manaMechanics, int mergeLevel, int fieldIndex, int towerIndex)
         {
             _towerLevels = GetComponent<TowerLevels>();
-            
+
+            _mobSpawnMechanics = mobSpawnMechanics;
+            _manaMechanics = manaMechanics;
             _towerOwner = towerOwner;
             _fieldIndex = fieldIndex;
             _towerIndex = towerIndex;
             
             _towerLevels.SetCurrentLevel(LevelType.BaseLevel, towerOwner.BaseLevels[TowerIndex]);
             _towerLevels.SetCurrentLevel(LevelType.MergeLevel, mergeLevel);
+            InitEvent?.Invoke();
         }
 
         public void Merge(Tower _secondTower)

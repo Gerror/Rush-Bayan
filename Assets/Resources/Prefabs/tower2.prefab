@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -2339434016746612058}
   - component: {fileID: -2049298255328688192}
   m_Layer: 3
-  m_Name: tower2
+  m_Name: Tower2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage:
-    _baseValue: 123
+    _baseValue: 107
     _modifiers:
     - LevelType: 0
       LevelModifiers:
@@ -130,7 +130,7 @@ MonoBehaviour:
       - 0
       - 0
   _attackInterval:
-    _baseValue: 0.8
+    _baseValue: 0.59
     _modifiers:
     - LevelType: 0
       LevelModifiers:
@@ -142,12 +142,11 @@ MonoBehaviour:
     - LevelType: 1
       LevelModifiers:
       - 0
-      - -0.4
-      - -0.53
-      - -0.6
-      - -0.64
+      - -0.3
+      - -0.39
+      - -0.44
+      - -0.47
   _bulletPrefab: {fileID: 8869960363283956353, guid: 2956c3a936f47aa45876b29dab8e44a3, type: 3}
-  MobSpawnMechanics: {fileID: 0}
 --- !u!114 &-6821261755409913039
 MonoBehaviour:
   m_ObjectHideFlags: 0

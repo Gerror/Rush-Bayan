@@ -1,9 +1,6 @@
-using System.Collections;
 using Game.Core;
 using UnityEngine;
-using Object = UnityEngine.Object;
 using Game.Mechanics.Mob;
-using UnityEditor.SceneManagement;
 using Zenject;
 
 namespace Game.Mechanics.Tower.Attack
@@ -15,11 +12,9 @@ namespace Game.Mechanics.Tower.Attack
         [SerializeField] private ValueProvider _attackInterval;
         [SerializeField] private GameObject _bulletPrefab;
 
-        private ITowerAttack _towerAttack;
-        private TowerLevels _towerLevels;
+        private TargetMobProvider _targetMobProvider;
         private PrefabFactory _prefabFactory;
         private Transform _tempObjectParent;
-        public MobSpawnMechanics MobSpawnMechanics;
 
         [Inject]
         private void Contruct(PrefabFactory prefabFactory, Transform tempObjectParent)
@@ -30,21 +25,20 @@ namespace Game.Mechanics.Tower.Attack
         
         protected override void Init()
         {
-            _towerAttack = GetComponent<ITowerAttack>();
-            _towerLevels = GetComponent<TowerLevels>();
-            _actionInterval = _attackInterval.GetValue(_towerLevels.Levels);
+            _targetMobProvider = GetComponent<TargetMobProvider>();
+            _actionInterval = _attackInterval.GetValue(_tower.TowerLevels.Levels);
         }
 
         protected override void TakeAction()
         {
-            if (MobSpawnMechanics.MobOrderedDictionary.Count > 0)
+            if (_tower.MobSpawnMechanics.MobOrderedDictionary.Count > 0)
             {
-                GameObject mob = _towerAttack.GetTargetMob();
-
-                GameObject bulletGO = _prefabFactory.Spawn(_bulletPrefab, transform.position, 
+                GameObject mob = _targetMobProvider.GetTargetMob();
+                
+                GameObject bulletGO = _prefabFactory.Spawn(_bulletPrefab, transform.position,
                     _bulletPrefab.transform.rotation, _tempObjectParent);
                 Bullet bullet = bulletGO.GetComponent<Bullet>();
-                bullet.Init(mob, (int) _damage.GetValue(_towerLevels.Levels));
+                bullet.Init(mob, _damage, _tower);
             }
         }
     }

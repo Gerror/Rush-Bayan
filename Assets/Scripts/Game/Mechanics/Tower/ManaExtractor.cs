@@ -8,20 +8,20 @@ namespace Game.Mechanics.Tower
     {
         [SerializeField] private ValueProvider _manaIncrease;
         [SerializeField] private ValueProvider _interval;
-
-        private TowerLevels _towerLevels;
         
-        public ManaMechanics ManaMechanics;
+        private TowerLevels _towerLevels;
+        private ManaMechanics _manaMechanics;
 
         protected override void Init()
         {
+            _manaMechanics = _tower.ManaMechanics;
             _towerLevels = GetComponent<TowerLevels>();
             _actionInterval = _interval.GetValue(_towerLevels.Levels);
         }
 
         protected override void TakeAction()
         {
-            ManaMechanics.ChangeMana((int) _manaIncrease.GetValue(_towerLevels.Levels));
+            _manaMechanics.ChangeMana((int) _manaIncrease.GetValue(_towerLevels.Levels));
         }
     }
 }

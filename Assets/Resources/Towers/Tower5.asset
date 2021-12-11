@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tower5
   m_EditorClassIdentifier: 
   Prefab: {fileID: 5752562759048568327, guid: ef684e6d9a9719f48b96c18ff19262e5, type: 3}
-  Sprite: {fileID: 21300000, guid: 39c2f43d2f128824393da3b1044d6863, type: 3}
+  Sprite: {fileID: 21300000, guid: 01bd12d8716d73f468ba14c89d9c0c1e, type: 3}
   _mergeViews:
   - {fileID: 7766993548458164623, guid: 72bd8c30514973c47bbf7a2cb0df0149, type: 3}
   - {fileID: 8550736221741639691, guid: 5149cc45265163f4f8a2e161458cce99, type: 3}

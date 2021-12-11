@@ -14,13 +14,13 @@ namespace Game.Mechanics.Mob
         [SerializeField] private GameObject _mobPrefab;
         [SerializeField] private GameObject _pointParent;
         [SerializeField] private ManaMechanics _manaMechanics;
+        [SerializeField] private MobsUpdater _mobsUpdater;
         [Min(10)] [SerializeField] private int _mobReward;
         
         private static int _mobIdCounter = 0;
         
         private List<Vector3> _pointList;
         private OrderedDictionary _mobOrderedDictionary;
-        private MobsHpUpdater _mobsHpUpdater;
         private GameManager _gameManager;
         private PrefabFactory _prefabFactory;
 
@@ -50,8 +50,7 @@ namespace Game.Mechanics.Mob
             
             _gameManager.EndGameEvent += EndGame;
             
-            _mobsHpUpdater = GetComponent<MobsHpUpdater>();
-            _mobsHpUpdater.StartMobUpdaterEvent += StartGame;
+            _mobsUpdater.StartMobUpdaterEvent += StartGame;
             
             foreach (Transform pointTransform in _pointParent.transform)
             {
@@ -80,7 +79,7 @@ namespace Game.Mechanics.Mob
             SpawnMob();
             while (true)
             {
-                yield return new WaitForSeconds(_spawnInterval);
+                yield return new WaitForSeconds(_mobsUpdater.CurrentSpawnInterval);
                 SpawnMob();
             }
         }
@@ -96,7 +95,7 @@ namespace Game.Mechanics.Mob
             mobMechanics.Id = _mobIdCounter;
 
             MobHP mobHp = mobGo.GetComponent<MobHP>();
-            mobHp.Init(_mobsHpUpdater.CurrentStartMobHp);
+            mobHp.Init(_mobsUpdater.CurrentStartMobHp);
 
             _mobOrderedDictionary.Add(mobMechanics.Id.ToString(), mobGo);
 

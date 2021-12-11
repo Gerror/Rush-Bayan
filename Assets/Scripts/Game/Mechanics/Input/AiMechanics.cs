@@ -1,14 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Game.Core;
 using UnityEngine;
+using Game.Mechanics.Tower;
+using Zenject;
 
 namespace Game.Mechanics.Input
 {
     public class AiMechanics : InputMechanics
     {
+        [SerializeField] private int _maxTowers = 15;
         [SerializeField] private ManaCostProvider _manaCostProvider;
-        [SerializeField] private int minTowers = 4;
+        [Min(2)] [SerializeField] private int minTowersForMerge = 10;
+        [Min(1)] [SerializeField] private int minTowersForLevelUp = 3;
         private TowerOwner _towerOwner;
+        private GameSettings _gameSettings;
+    
+        [Inject]
+        private void Construct(GameSettings gameSettings)
+        {
+            _gameSettings = gameSettings;
+        }
         
         private void Awake()
         {
@@ -50,15 +63,11 @@ namespace Game.Mechanics.Input
                     _towerSpawnMechanics.SpawnTower();
                 else if (iCanLevelUp)
                     LevelUp(towerIndex);
-
-
-                if (_towerOwner.TowerCount > minTowers)
+                
+                (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) = CheckMergeTower();
+                if (iCanMergeTowers)
                 {
-                    (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) = CheckMergeTower();
-                    if (iCanMergeTowers)
-                    {
-                        mainTower.Merge(secondTower);
-                    }
+                    mainTower.Merge(secondTower);
                 }
             }
         }
@@ -80,10 +89,14 @@ namespace Game.Mechanics.Input
             for (int i = 0; i < _towerOwner.Towers.Length; i++)
             {
                 Dictionary<int, Tower.Tower> dictionary = _towerOwner.Towers[i];
-                if (dictionary.Count > 0)
+                if (dictionary.Count >= minTowersForLevelUp || (dictionary.Count >= 1 && _towerOwner.TowerCount == _maxTowers))
                 {
+                    if (_towerOwner.BaseLevels[i] == _gameSettings.MaxLevels[(int) LevelType.BaseLevel] - 1)
+                        continue;
+
                     hasTowers = true;
                     int manaCost = _manaCostProvider.GetManaCost(i);
+                    
                     if (minLevelUpPrice == 0 || minLevelUpPrice > manaCost)
                     {
                         minLevelUpPrice = manaCost;
@@ -102,7 +115,7 @@ namespace Game.Mechanics.Input
             for (int i = 0; i < _towerOwner.Towers.Length; i++)
             {
                 Dictionary<int, Tower.Tower> dictionary = _towerOwner.Towers[i];
-                if (dictionary.Count > 1)
+                if (dictionary.Count >= minTowersForMerge || (dictionary.Count > 1 && _towerOwner.TowerCount == _maxTowers))
                 {
                     foreach (var tower1 in dictionary.Values)
                     {
