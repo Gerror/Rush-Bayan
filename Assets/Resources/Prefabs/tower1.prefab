@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 1535100144214218877}
   - component: {fileID: 2194759185715820188}
   - component: {fileID: -5367354724742050928}
-  m_Layer: 0
+  - component: {fileID: 6573562019723187523}
+  - component: {fileID: 2909239314862007492}
+  m_Layer: 3
   m_Name: tower1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 978cc0cf6b268704f91900ddf55de33e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -111,15 +113,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage:
-    _baseValue: 100
+    _baseValue: 45
     _modifiers:
     - LevelType: 0
       LevelModifiers:
       - 0
-      - 100
-      - 200
+      - 23
+      - 46
+      - 69
+      - 92
     - LevelType: 1
       LevelModifiers:
+      - 0
+      - 0
       - 0
       - 0
       - 0
@@ -131,15 +137,17 @@ MonoBehaviour:
       - 0
       - 0
       - 0
+      - 0
+      - 0
     - LevelType: 1
       LevelModifiers:
       - 0
-      - 0
-      - 0
+      - -0.23
+      - -0.3
+      - -0.34
+      - -0.36
   _bulletPrefab: {fileID: 8869960363283956353, guid: 2956c3a936f47aa45876b29dab8e44a3, type: 3}
   MobSpawnMechanics: {fileID: 0}
-  _animationClip: {fileID: 7400000, guid: 3a66340eba977c749a4e3e209764d5b1, type: 2}
-  _animation: {fileID: 0}
 --- !u!114 &2194759185715820188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,3 +180,41 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!61 &6573562019723187523
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916019519865568403}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.4, y: 0.4}
+    newSize: {x: 0.5, y: 0.5}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.4, y: 0.4}
+  m_EdgeRadius: 0
+--- !u!114 &2909239314862007492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8916019519865568403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eff0c8386dcf0c442afe7936a6ab9560, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

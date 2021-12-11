@@ -8,7 +8,6 @@ namespace Game.Mechanics.Tower
     public class TowerLevels : MonoBehaviour
     {
         [SerializeField] private int[] _levels;
-        private TowerOwner _towerOwner;
         private GameSettings _gameSettings;
         private Animator _animator;
         
@@ -20,11 +19,6 @@ namespace Game.Mechanics.Tower
             _gameSettings = gameSettings;
         }
 
-        public void SetTowerOwner(TowerOwner towerOwner)
-        {
-            _towerOwner = towerOwner;
-        }
-        
         public void LevelUp(LevelType levelType)
         {
             if (_levels[(int) levelType] == _gameSettings.MaxLevels[(int) levelType])
@@ -35,9 +29,9 @@ namespace Game.Mechanics.Tower
                 _animator.SetTrigger("BaseLevelUp");
         }
 
-        public void SetCurrentBaseLevel(int towerIndex)
+        public void SetCurrentLevel(LevelType levelType, int value)
         {
-            _levels[(int) LevelType.BaseLevel] = _towerOwner.BaseLevels[towerIndex];
+            _levels[(int) levelType] = value;
         }
 
         private void Start()

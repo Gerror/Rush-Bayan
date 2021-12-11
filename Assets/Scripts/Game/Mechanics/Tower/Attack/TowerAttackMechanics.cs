@@ -41,7 +41,8 @@ namespace Game.Mechanics.Tower.Attack
             {
                 GameObject mob = _towerAttack.GetTargetMob();
 
-                GameObject bulletGO = _prefabFactory.Spawn(_bulletPrefab, _tempObjectParent);
+                GameObject bulletGO = _prefabFactory.Spawn(_bulletPrefab, transform.position, 
+                    _bulletPrefab.transform.rotation, _tempObjectParent);
                 Bullet bullet = bulletGO.GetComponent<Bullet>();
                 bullet.Init(mob, (int) _damage.GetValue(_towerLevels.Levels));
             }

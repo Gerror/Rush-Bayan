@@ -45,8 +45,9 @@ namespace Game.Controllers
             _gameManager.StartGame();
         }
 
-        private void EndGame()
+        private void EndGame(bool deadPlayer)
         {
+            _mainUiController.SetEndGameText(deadPlayer);
             _gameManager.EndGame();
         }
     }
