@@ -1,0 +1,17 @@
+{
+    "name": "GameMechanics",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3044b5052def7fb4fbde8d541a2b320d",
+        "GUID:3e57f56563148eb4a979ed79db697540"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
