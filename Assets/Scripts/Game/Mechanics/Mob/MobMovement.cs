@@ -34,7 +34,7 @@ namespace Game.Mechanics.Mob
             if (_currentPointIndex < _mobSpawnMechanics.PointList.Count)
             {
                 Vector3 direction = _mobSpawnMechanics.PointList[_currentPointIndex] - transform.position;
-                if (direction.magnitude < 1e-3)
+                if (direction.magnitude < 1e-2)
                     _currentPointIndex++;
 
                 direction = direction.normalized * _speed;

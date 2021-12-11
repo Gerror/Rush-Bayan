@@ -4,18 +4,19 @@ using UnityEngine;
 
 namespace Game.Core
 {
-    public static class GameSettings
+    public enum LevelType
     {
-        public readonly static int NumberOfTypeOfTower = 5;
-        public readonly static float MobUpdateInterval = 10f;
-        
-        public enum LevelType
-        {
-            BaseLevel = 0,
-            MergeLevel = 1,
-        }
+        BaseLevel = 0,
+        MergeLevel = 1,
+    }
+    
+    public class GameSettings: MonoBehaviour
+    {
+        public int NumberOfTypeOfTower = 5;
+        public float MobUpdateInterval = 10f;
+        public int MaxPlayerHealth = 3;
 
-        public readonly static int[] MaxLevels =
+        public int[] MaxLevels =
         {
             3,
             3

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -5,10 +6,13 @@ namespace Game.Mechanics.Input
 {
     public class AiMechanics : InputMechanics
     {
+        private void Awake()
+        {
+            _manaMechanics.changeManaToEvent += ManaMenegment;   
+        }
+
         public override void StartInputMechanics()
         {
-            _manaMechanics.changeManaToEvent += ManaMenegment;
-            
             StartCoroutine(StartingActions());
         }
 

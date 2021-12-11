@@ -3,6 +3,7 @@ using UnityEngine;
 using Game.Core;
 using Game.Mechanics;
 using Game.UI;
+using Zenject;
 
 namespace Game.Generators
 {
@@ -12,13 +13,32 @@ namespace Game.Generators
         [SerializeField] private TowerOwner _towerOwner;
         [SerializeField] private BaseLevelUpController baseLevelUpController;
 
+        private GameSettings _gameSettings;
+        private GameManager _gameManager;
+        private PrefabFactory _prefabFactory;
+        
+        [Inject]
+        private void Construct(GameSettings gameSettings, PrefabFactory prefabFactory, GameManager gameManager)
+        {
+            _gameSettings = gameSettings;
+            _prefabFactory = prefabFactory;
+            _gameManager = gameManager;
+        }
+        
         private void Awake()
         {
-            List<BaseLevelScreen> levelScreens = new List<BaseLevelScreen>();
-            for (int i = 0; i < GameSettings.NumberOfTypeOfTower; i++)
-            {
-                GameObject go = Object.Instantiate(_levelUiPrefab, transform);
+            _gameManager.StartGameEvent += StartGame;
+            _gameManager.EndGameEvent += EndGame;
+        }
 
+        private void StartGame()
+        {
+            List<BaseLevelScreen> levelScreens = new List<BaseLevelScreen>();
+            for (int i = 0; i < _gameSettings.NumberOfTypeOfTower; i++)
+            {
+                GameObject go = _prefabFactory.Spawn(_levelUiPrefab, transform);
+                go.transform.localScale = Vector3.one;
+                
                 BaseLevelScreen baseLevelScreen = go.GetComponentInChildren<BaseLevelScreen>();
                 if (baseLevelScreen)
                 {
@@ -34,6 +54,15 @@ namespace Game.Generators
             }
 
             baseLevelUpController.LevelScreens = levelScreens;
+        }
+
+        private void EndGame()
+        {
+            foreach (Transform levelScreenTransform in transform)
+            {
+                Destroy(levelScreenTransform.gameObject);
+            }
+            baseLevelUpController.LevelScreens.Clear();
         }
     }
 }

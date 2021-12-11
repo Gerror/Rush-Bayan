@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2703745419854462442}
   - component: {fileID: 2971115306105231138}
-  - component: {fileID: 376533202437714631}
   - component: {fileID: 6706543344308423128}
   - component: {fileID: 2869655213108124554}
+  - component: {fileID: 3991030226017425136}
   m_Layer: 0
   m_Name: tower3
   m_TagString: Untagged
@@ -85,22 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!111 &376533202437714631
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4873360445610627585}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 3a66340eba977c749a4e3e209764d5b1, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 3a66340eba977c749a4e3e209764d5b1, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!114 &6706543344308423128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,3 +137,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levels: 0000000000000000
+--- !u!95 &3991030226017425136
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4873360445610627585}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2e53e0dfc8ebaed46a252c635b956e17, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

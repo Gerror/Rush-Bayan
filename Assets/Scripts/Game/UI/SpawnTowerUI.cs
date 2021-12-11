@@ -10,11 +10,11 @@ namespace Game.UI
     {
         [SerializeField] private Text _spawnPriceLabel;
         
-        public event Action spawnTowerEvent;
+        public event Action SpawnTowerEvent;
 
         public void SpawnTower()
         {
-            spawnTowerEvent?.Invoke();
+            SpawnTowerEvent?.Invoke();
         }
 
         public void SetPrice(int price)

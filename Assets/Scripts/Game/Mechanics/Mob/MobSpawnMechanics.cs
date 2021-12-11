@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using Game.Core;
 using UnityEngine;
-using Object = UnityEngine.Object;
+using Zenject;
 
 namespace Game.Mechanics.Mob
 {
@@ -14,12 +16,22 @@ namespace Game.Mechanics.Mob
         [SerializeField] private ManaMechanics _manaMechanics;
         [Min(10)] [SerializeField] private int _mobReward;
         
-        private static int mobIdCounter = 0;
+        private static int _mobIdCounter = 0;
         
         private List<Vector3> _pointList;
         private OrderedDictionary _mobOrderedDictionary;
-
         private MobsHpUpdater _mobsHpUpdater;
+        private GameManager _gameManager;
+        private PrefabFactory _prefabFactory;
+
+        public event Action MobEndMovementEvent;
+
+        [Inject]
+        private void Construct(GameManager gameManager, PrefabFactory prefabFactory)
+        {
+            _gameManager = gameManager;
+            _prefabFactory = prefabFactory;
+        }
         
         public List<Vector3> PointList
         {
@@ -31,18 +43,36 @@ namespace Game.Mechanics.Mob
             get => _mobOrderedDictionary;
         }
 
-        private void Start()
+        private void Awake()
         {
             _pointList = new List<Vector3>();
             _mobOrderedDictionary = new OrderedDictionary();
+            
+            _gameManager.EndGameEvent += EndGame;
+            
             _mobsHpUpdater = GetComponent<MobsHpUpdater>();
+            _mobsHpUpdater.StartMobUpdaterEvent += StartGame;
             
             foreach (Transform pointTransform in _pointParent.transform)
             {
                 _pointList.Add(pointTransform.position);
             }
+        }
 
+        private void StartGame()
+        {
             StartCoroutine(IntervalSpawnMob());
+        }
+
+        private void EndGame()
+        {
+            foreach (Transform mob in transform)
+            {
+                Destroy(mob.gameObject);
+            }
+
+            _mobOrderedDictionary.Clear();
+            _mobIdCounter = 0;
         }
 
         private IEnumerator IntervalSpawnMob()
@@ -57,30 +87,32 @@ namespace Game.Mechanics.Mob
 
         private void SpawnMob()
         {
-            GameObject mobGO = Object.Instantiate(_mobPrefab, _pointList[0], Quaternion.identity);
-            mobGO.transform.SetParent(gameObject.transform);
-            mobGO.GetComponent<MobMovement>().MobSpawnMechanics = this;
+
+            GameObject mobGo = _prefabFactory.Spawn(_mobPrefab, _pointList[0], Quaternion.identity, gameObject.transform);
+            mobGo.GetComponent<MobMovement>().MobSpawnMechanics = this;
             
-            MobMechanics mobMechanics = mobGO.GetComponent<MobMechanics>();
+            MobMechanics mobMechanics = mobGo.GetComponent<MobMechanics>();
             mobMechanics.DeadEvent += MobDead;
-            mobMechanics.Id = mobIdCounter;
+            mobMechanics.Id = _mobIdCounter;
 
-            MobHP mobHp = mobGO.GetComponent<MobHP>();
-            mobHp.Init(_mobsHpUpdater.StartMobHp);
+            MobHP mobHp = mobGo.GetComponent<MobHP>();
+            mobHp.Init(_mobsHpUpdater.CurrentStartMobHp);
 
-            _mobOrderedDictionary.Add(mobMechanics.Id.ToString(), mobGO);
+            _mobOrderedDictionary.Add(mobMechanics.Id.ToString(), mobGo);
 
-            mobIdCounter++;
+            _mobIdCounter++;
         }
 
-        private void MobDead(int id, bool mobEndMovement)
+        private void MobDead(int id, bool mobWasKilled)
         {
             GameObject mobGO = (GameObject)_mobOrderedDictionary[id.ToString()];
             Destroy(mobGO);
             _mobOrderedDictionary.Remove(id.ToString());
-            
-            if (mobEndMovement)
+
+            if (mobWasKilled)
                 _manaMechanics.ChangeMana(_mobReward);
+            else
+                MobEndMovementEvent?.Invoke();
         }
     }
 }

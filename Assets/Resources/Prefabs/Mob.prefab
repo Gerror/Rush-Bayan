@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e8f1e344cbf70d4982cd2ae218fc32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hpLabel: {fileID: 9061336413464037714}
+  mobHpLabel: {fileID: 9061336413464037714}
 --- !u!114 &-1195597096040253212
 MonoBehaviour:
   m_ObjectHideFlags: 0
