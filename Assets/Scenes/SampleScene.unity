@@ -1338,7 +1338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mobUpdateInterval: 10
   _startMobHp: 225
-  _mobHpIncrease: 75
+  _mobHpMultiplier: 1.15
   _startSpawnInterval: 1.5
   _spawnIntervalDecrease: 0.1
   _minSpawnInterval: 0.5

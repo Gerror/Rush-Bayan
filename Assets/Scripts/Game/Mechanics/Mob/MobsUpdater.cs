@@ -12,7 +12,7 @@ namespace Game.Mechanics.Mob
         
         [Header("Mob hp")]
         [Min(225)] [SerializeField] private int _startMobHp;
-        [Min(0)] [SerializeField] private int _mobHpIncrease;
+        [Min(1.01f)] [SerializeField] private float _mobHpMultiplier;
         
         [Header("Mob spawn")]
         [Min(0.5f)] [SerializeField] private float _startSpawnInterval;
@@ -54,7 +54,7 @@ namespace Game.Mechanics.Mob
             while (true)
             {
                 yield return new WaitForSeconds(_mobUpdateInterval);
-                _currentStartMobHp += _mobHpIncrease;
+                _currentStartMobHp = (int) (_currentStartMobHp * _mobHpMultiplier);
                 _currentSpawnInterval -= _spawnIntervalDecrease;
                 if (_currentSpawnInterval <= _minSpawnInterval)
                     _currentSpawnInterval = _minSpawnInterval;
