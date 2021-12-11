@@ -1,6 +1,6 @@
 using UnityEngine;
+using System;
 using Game.UI;
-using Game.Mechanics.Tower;
 
 namespace Game.Mechanics.Input
 {
@@ -8,9 +8,16 @@ namespace Game.Mechanics.Input
     {
         [SerializeField] private SpawnTowerUI _spawnTowerUi;
         [SerializeField] private ManaScreen _manaScreen;
-
+        [SerializeField] private BaseLevelUpButton[] _levelUpButtons;
+        
         public override void StartInputMechanics()
         {
+            _levelUpButtons = FindObjectsOfType<BaseLevelUpButton>();
+            foreach (var levelUpButton in _levelUpButtons)
+            {
+                levelUpButton.LevelUpEvent += LevelUp;
+            }
+            
             _spawnTowerUi.spawnTowerEvent += SpawnTower;
 
             _manaMechanics.changeManaEvent += SetManaValue;

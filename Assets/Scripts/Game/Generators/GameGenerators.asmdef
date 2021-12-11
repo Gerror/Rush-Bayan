@@ -1,8 +1,11 @@
 {
-    "name": "GameUI",
+    "name": "GameGenerators",
     "rootNamespace": "",
     "references": [
-        "GUID:3e57f56563148eb4a979ed79db697540"
+        "GUID:f54d21369543c5e4faf6a200444eb406",
+        "GUID:3e57f56563148eb4a979ed79db697540",
+        "GUID:3044b5052def7fb4fbde8d541a2b320d",
+        "GUID:a42df3d26fb62fd458c131f7d12b09e7"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

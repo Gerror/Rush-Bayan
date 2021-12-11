@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Game.Mechanics.Tower.Attack;
@@ -9,20 +10,22 @@ using Random = UnityEngine.Random;
 namespace Game.Mechanics.Tower
 {
     [RequireComponent(typeof(ManaMechanics))]
-    [RequireComponent(typeof(TowerOwnerMechanics))]
+    [RequireComponent(typeof(TowerOwner))]
     public class TowerSpawnMechanics : MonoBehaviour
     {
         [SerializeField] private GameObject _gameField;
            
         [Min(10)] [SerializeField] private int _startTowerPrice;
         [Min(10)] [SerializeField] private int _priceIncrease;
-
+        [Min(0)]  [SerializeField] private int _currentTowerPrice = 0;
+        
         private ManaMechanics _manaMechanics;
         private MobSpawnMechanics _mobSpawnMechanics;
-        private TowerOwnerMechanics _towerOwnerMechanics;
+        private TowerOwner _towerOwner;
         
-        [SerializeField] private int _currentTowerPrice = 0;
         private Dictionary<int, bool> _freeFieldMap;
+
+        public event Action<int, GameObject> TowerSpawnEvent; 
 
         public int CurrentTowerPrice
         {
@@ -33,15 +36,15 @@ namespace Game.Mechanics.Tower
         {
             if (!_manaMechanics)
                 _manaMechanics = GetComponent<ManaMechanics>();
-            if (!_towerOwnerMechanics)
-                _towerOwnerMechanics = GetComponent<TowerOwnerMechanics>();
+            if (!_towerOwner)
+                _towerOwner = GetComponent<TowerOwner>();
         }
 
         private void Awake()
         {
             _currentTowerPrice = _startTowerPrice;
             
-            _mobSpawnMechanics = _towerOwnerMechanics.MobSpawnMechanics;
+            _mobSpawnMechanics = _towerOwner.MobSpawnMechanics;
             _freeFieldMap = new Dictionary<int, bool>();
 
             int i = 0;
@@ -62,14 +65,25 @@ namespace Game.Mechanics.Tower
                 
                 int fieldIndex = _freeFieldMap.Keys.ToList()[Random.Range(0, _freeFieldMap.Count)];
 
+                int towerIndex = Random.Range(0, _towerOwner.TowerConfigs.Length - 1);
                 GameObject tower = Object.Instantiate(
-                    _towerOwnerMechanics.TowerPrefab[Random.Range(0, _towerOwnerMechanics.TowerPrefab.Length - 1)],
+                    _towerOwner.TowerConfigs[towerIndex].Prefab,
                     _gameField.transform.GetChild(fieldIndex));
 
+                TowerLevels towerLevels = tower.GetComponent<TowerLevels>();
+                towerLevels.SetTowerOwner(_towerOwner);
+                towerLevels.SetCurrentBaseLevel(towerIndex);
+                
                 TowerAttackMechanics towerAttackMechanics = tower.GetComponent<TowerAttackMechanics>();
                 if (towerAttackMechanics)
                     towerAttackMechanics.MobSpawnMechanics = _mobSpawnMechanics;
+
+                ManaExtractor manaExtractor = tower.GetComponent<ManaExtractor>();
+                if (manaExtractor)
+                    manaExtractor.ManaMechanics = _manaMechanics;
+
                 
+                TowerSpawnEvent?.Invoke(towerIndex, tower);
                 _freeFieldMap.Remove(fieldIndex);
             }
         }
