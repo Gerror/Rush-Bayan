@@ -13,7 +13,6 @@ namespace Game.Core
     public class GameSettings: MonoBehaviour
     {
         public int NumberOfTypeOfTower = 5;
-        public float MobUpdateInterval = 10f;
         public int MaxPlayerHealth = 3;
 
         public int[] MaxLevels =

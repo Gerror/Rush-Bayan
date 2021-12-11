@@ -38,7 +38,8 @@ namespace Game.Controllers
                 {
                     SpriteRenderer towerSpriteRenderer = playerTower.gameObject.GetComponent<SpriteRenderer>();
 
-                    _folowingByFingerObj = _prefabFactory.Spawn(_folowingByFingerPrefab, _tempObjectParent);
+                    _folowingByFingerObj = _prefabFactory.Spawn(_folowingByFingerPrefab, 
+                        _mainCamera.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity,  _tempObjectParent);
                     _folowingByFingerObj.GetComponent<SpriteRenderer>().sprite = towerSpriteRenderer.sprite;
 
                     _target = playerTower;

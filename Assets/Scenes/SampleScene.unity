@@ -853,7 +853,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -709.99994, y: 360}
+  m_AnchoredPosition: {x: -709.99994, y: 415}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &399030255
@@ -1293,6 +1293,55 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
+--- !u!1 &482151466
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 482151467}
+  - component: {fileID: 482151468}
+  m_Layer: 0
+  m_Name: MobsUpdater
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &482151467
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482151466}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1607484167}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &482151468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 482151466}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3338f94f2e9f9044b6d27ef0e6f6642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mobUpdateInterval: 10
+  _startMobHp: 225
+  _mobHpIncrease: 75
+  _startSpawnInterval: 1.5
+  _spawnIntervalDecrease: 0.1
+  _minSpawnInterval: 0.5
 --- !u!1 &491566385
 GameObject:
   m_ObjectHideFlags: 0
@@ -8609,7 +8658,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 709.99994, y: 80}
+  m_AnchoredPosition: {x: 709.99994, y: 50}
   m_SizeDelta: {x: 400, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &776785693
@@ -10875,6 +10924,7 @@ Transform:
   - {fileID: 1752508625}
   - {fileID: 475757881}
   - {fileID: 1752026006}
+  - {fileID: 482151467}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -11284,8 +11334,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _towerSpawnMechanics: {fileID: 1752026009}
   _manaMechanics: {fileID: 1752026007}
+  _maxTowers: 15
   _manaCostProvider: {fileID: 1992758630}
-  minTowers: 10
+  minTowersForMerge: 5
+  minTowersForLevelUp: 3
 --- !u!114 &1752026009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11614,7 +11666,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NumberOfTypeOfTower: 5
-  MobUpdateInterval: 10
   MaxPlayerHealth: 3
   MaxLevels: 0500000005000000
 --- !u!1 &1779927164
@@ -11710,7 +11761,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1812183909}
   - component: {fileID: 1812183910}
-  - component: {fileID: 1812183911}
   m_Layer: 0
   m_Name: MobsGameMechanics
   m_TagString: Untagged
@@ -11749,20 +11799,8 @@ MonoBehaviour:
   _mobPrefab: {fileID: 7684860529439253640, guid: 1d5e6ca9de5894744a32847ba70d7e11, type: 3}
   _pointParent: {fileID: 528745448}
   _manaMechanics: {fileID: 475757884}
+  _mobsUpdater: {fileID: 482151468}
   _mobReward: 10
---- !u!114 &1812183911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1812183908}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3338f94f2e9f9044b6d27ef0e6f6642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startMobHp: 225
 --- !u!1 &1886232296
 GameObject:
   m_ObjectHideFlags: 0
@@ -11873,7 +11911,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1931016221}
   - component: {fileID: 1931016222}
-  - component: {fileID: 1931016223}
   m_Layer: 0
   m_Name: MobsGameMechanics
   m_TagString: Untagged
@@ -11912,20 +11949,8 @@ MonoBehaviour:
   _mobPrefab: {fileID: 7684860529439253640, guid: 1d5e6ca9de5894744a32847ba70d7e11, type: 3}
   _pointParent: {fileID: 1977368681}
   _manaMechanics: {fileID: 1752026007}
+  _mobsUpdater: {fileID: 482151468}
   _mobReward: 10
---- !u!114 &1931016223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931016220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3338f94f2e9f9044b6d27ef0e6f6642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _startMobHp: 225
 --- !u!1 &1933156753
 GameObject:
   m_ObjectHideFlags: 0

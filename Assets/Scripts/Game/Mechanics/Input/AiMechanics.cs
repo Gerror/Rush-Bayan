@@ -6,6 +6,7 @@ namespace Game.Mechanics.Input
 {
     public class AiMechanics : InputMechanics
     {
+        [SerializeField] private int _maxTowers = 15;
         [SerializeField] private ManaCostProvider _manaCostProvider;
         [Min(2)] [SerializeField] private int minTowersForMerge = 10;
         [Min(1)] [SerializeField] private int minTowersForLevelUp = 3;
@@ -52,13 +53,10 @@ namespace Game.Mechanics.Input
                 else if (iCanLevelUp)
                     LevelUp(towerIndex);
                 
-                if (_towerOwner.TowerCount > minTowersForMerge)
+                (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) = CheckMergeTower();
+                if (iCanMergeTowers)
                 {
-                    (bool iCanMergeTowers, Tower.Tower mainTower, Tower.Tower secondTower) = CheckMergeTower();
-                    if (iCanMergeTowers)
-                    {
-                        mainTower.Merge(secondTower);
-                    }
+                    mainTower.Merge(secondTower);
                 }
             }
         }
@@ -102,7 +100,7 @@ namespace Game.Mechanics.Input
             for (int i = 0; i < _towerOwner.Towers.Length; i++)
             {
                 Dictionary<int, Tower.Tower> dictionary = _towerOwner.Towers[i];
-                if (dictionary.Count > 1)
+                if (dictionary.Count >= minTowersForMerge || (dictionary.Count > 1 && _towerOwner.TowerCount == _maxTowers))
                 {
                     foreach (var tower1 in dictionary.Values)
                     {
